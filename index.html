@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selinay Benli | Grafik Tasarım Portfolyosu</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .font-sans { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        
+        :root {
+            /* SİNEMATİK & PREMIUM EDITORIAL GÜNDÜZ MODU */
+            --bg-main: #ffffff; 
+            --bg-sec: #f8f8f8;
+            --bg-card: rgba(0, 0, 0, 0.02);
+            --text-main: #1A1721;
+            --text-sec: #544E5E;
+            --text-muted: #8A8593;
+            --border-color: rgba(20, 15, 28, 0.08);
+            --accent: #8B5CF6; 
+        }
+
+        .dark-mode {
+            /* SİNEMATİK & PREMIUM EDITORIAL GECE MODU */
+            --bg-main: #05030A; 
+            --bg-sec: #0B0716;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --text-main: #FDFBFD;
+            --text-sec: #A39DA8;
+            --text-muted: #736D7A;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --accent: #B794F4; 
+        }
+
+        body {
+            overflow-x: hidden;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            transition: background-color 1s ease, color 1s ease;
+        }
+
+        /* Yumuşak, sinematik lila glow efektleri */
+        .glow-text {
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+        }
+
+        /* YENİ ZEMİN TASARIMI: Dinamik Mesh Gradient ve Noise Dokusu */
+        .bg-noise {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1; 
+            opacity: 0.5; 
+            mix-blend-mode: overlay;
+        }
+
+        /* YENİ EKLENEN: Estetik Nokta Grid ve Dönüş Animasyonları */
+        .bg-pattern-grid {
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(var(--text-main) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 80s linear infinite;
+        }
+        .animate-spin-slower-reverse {
+            animation: spin-slow 120s linear infinite reverse;
+        }
+
+        .mesh-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            animation: drift 25s infinite ease-in-out alternate;
+            pointer-events: none;
+            z-index: 0;
+            background-color: var(--accent);
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(8vw, 6vh) scale(1.1) rotate(90deg); }
+            66% { transform: translate(-6vw, 8vh) scale(0.9) rotate(180deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+        }
+
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+
+        /* Animation Classes */
+        .reveal-text {
+            overflow: hidden;
+            padding: 1rem 0;
+        }
+        .reveal-text-inner {
+            transform: translateY(3rem);
+            opacity: 0;
+            filter: blur(4px);
+            transition: all 1.2s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-text-inner.is-visible {
+            transform: translateY(0);
+            opacity: 1;
+            filter: blur(0);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(4rem);
+            filter: blur(4px);
+            transition: all 1.2s cubic-bezier(0.16,1,0.3,1);
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .skill-bar-fill {
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 1.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        .skill-bar-fill.is-visible {
+            transform: scaleX(1);
+        }
+
+        /* Utility classes for selection */
+        ::selection {
+            background-color: rgba(139, 92, 246, 0.2);
+            color: var(--text-main);
+        }
+        
+        #custom-cursor {
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.4s cubic-bezier(0.16,1,0.3,1), height 0.4s cubic-bezier(0.16,1,0.3,1), background-color 0.4s, border-color 0.4s, box-shadow 0.4s;
+        }
+        
+        /* Mobil ve dokunmatik ekranlarda özel imleci gizle */
+        @media (hover: none) and (pointer: coarse), (max-width: 768px) {
+            #custom-cursor {
+                display: none !important;
+            }
+        }
+
+        .cursor-hovered {
+            width: 5rem !important;
+            height: 5rem !important;
+            background-color: rgba(139, 92, 246, 0.1) !important;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+        }
+
+        .modal-enter {
+            animation: fadeIn 0.5s forwards;
+        }
+        .modal-content-enter {
+            animation: zoomIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="font-sans dark-mode">
+
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[var(--bg-main)] transition-colors duration-1000">
+        <div id="blob1" class="mesh-blob w-[70vw] h-[70vw] top-[-20%] left-[-10%] transition-opacity duration-1000 opacity-10"></div>
+        <div id="blob2" class="mesh-blob w-[60vw] h-[60vw] bottom-[-20%] right-[-10%] transition-opacity duration-1000 opacity-[0.06]" style="animation-delay: -7s; animation-duration: 30s;"></div>
+        <div id="blob3" class="mesh-blob w-[50vw] h-[50vw] top-[30%] left-[50%] transition-opacity duration-1000 opacity-5" style="animation-delay: -15s; animation-duration: 35s;"></div>
+
+        <div class="absolute top-[8%] left-[4%] text-[var(--text-main)] opacity-[0.09]">
+            <svg width="160" height="160" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1" class="animate-spin-slow">
+                <rect x="10" y="10" width="80" height="80" rx="15" />
+                <text x="50" y="65" font-size="42" font-weight="300" text-anchor="middle" fill="currentColor" stroke="none" style="font-family: 'Inter'">Ps</text>
+            </svg>
+        </div>
+        <div class="absolute top-[12%] right-[4%] text-[var(--text-main)] opacity-[0.07]">
+            <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.2" class="animate-spin-slower-reverse">
+                <path d="M12 1C12 1 12 10.5 23 12C12 13.5 12 23 12 23C12 23 12 13.5 1 12C12 10.5 12 1 12 1Z" fill="currentColor" fill-opacity="0.05" />
+            </svg>
+        </div>
+        <div class="absolute top-[50%] -translate-y-1/2 left-[3%] text-[var(--text-main)] opacity-[0.07]">
+            <svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.2" class="animate-spin-slow">
+                <path d="M12 1C12 1 12 10.5 23 12C12 13.5 12 23 12 23C12 23 12 13.5 1 12C12 10.5 12 1 12 1Z" fill="currentColor" fill-opacity="0.05" />
+            </svg>
+        </div>
+        <div class="absolute top-[50%] -translate-y-1/2 right-[3%] text-[var(--text-main)] opacity-[0.09]">
+            <svg width="160" height="160" viewBox="0 0 38 57" fill="none" stroke="currentColor" stroke-width="0.5" class="animate-spin-slower-reverse">
+                <path d="M19 28.5C19 33.7467 14.7467 38 9.5 38C4.25329 38 0 33.7467 0 28.5C0 23.2533 4.25329 19 9.5 19C14.7467 19 19 23.2533 19 28.5Z" />
+                <path d="M19 47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5C0 42.2533 4.25329 38 9.5 38C14.7467 38 19 42.2533 19 47.5Z" />
+                <path d="M38 9.5C38 14.7467 33.7467 19 28.5 19C23.2533 19 19 14.7467 19 9.5C19 4.2533 23.2533 0 28.5 0C33.7467 0 38 4.2533 38 9.5Z" />
+                <path d="M19 9.5C19 14.7467 14.7467 19 9.5 19C4.2533 19 0 14.7467 0 9.5C0 4.2533 4.2533 0 9.5 0C14.7467 0 19 4.2533 19 9.5Z" />
+                <path d="M38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5Z" />
+            </svg>
+        </div>
+        <div class="absolute bottom-[8%] left-[4%] text-[var(--text-main)] opacity-[0.07]">
+            <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.2" class="animate-spin-slow">
+                <path d="M12 1C12 1 12 10.5 23 12C12 13.5 12 23 12 23C12 23 12 13.5 1 12C12 10.5 12 1 12 1Z" fill="currentColor" fill-opacity="0.05" />
+            </svg>
+        </div>
+        <div class="absolute bottom-[8%] right-[4%] text-[var(--text-main)] opacity-[0.09]">
+            <svg width="160" height="160" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1" class="animate-spin-slower-reverse">
+                <rect x="10" y="10" width="80" height="80" rx="15" />
+                <text x="50" y="65" font-size="42" font-weight="300" text-anchor="middle" fill="currentColor" stroke="none" style="font-family: 'Inter'">Ai</text>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="bg-noise"></div>
+    <div class="bg-pattern-grid"></div>
+
+    <div id="custom-cursor" class="fixed top-0 left-0 rounded-full w-3 h-3 bg-[var(--text-main)]/70 backdrop-blur-md" style="transform: translate(-50%, -50%);"></div>
+
+    <nav class="fixed w-full z-50 py-6 px-6 md:px-10 flex justify-between items-center bg-gradient-to-b from-[var(--bg-main)] via-[var(--bg-main)]/60 to-transparent">
+        <a href="javascript:void(0);" onclick="goHome();" class="interactive-el font-display text-2xl md:text-3xl font-medium tracking-widest text-[var(--text-main)] hover:text-[var(--accent)] transition-colors">
+            SB<span class="text-[var(--accent)]/40">.</span>
+        </a>
+        <div class="flex items-center gap-4 md:gap-6">
+            <button onclick="toggleTheme()" class="interactive-el w-10 h-10 rounded-full border border-[var(--text-main)]/20 bg-[var(--text-main)]/5 flex items-center justify-center text-[var(--text-main)] hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]/40 hover:text-[var(--accent)] transition-all duration-500" title="Temayı Değiştir">
+                <i data-lucide="sun" id="theme-icon-sun" class="w-4 h-4 block" stroke-width="1.5"></i>
+                <i data-lucide="moon" id="theme-icon-moon" class="w-4 h-4 hidden" stroke-width="1.5"></i>
+            </button>
+
+            <button onclick="toggleMenu()" class="interactive-el text-[var(--text-main)] flex items-center gap-4 group">
+                <span class="text-[10px] tracking-[0.3em] hidden md:block font-light uppercase opacity-60 group-hover:text-[var(--accent)] group-hover:opacity-100 transition-colors">MENÜ</span>
+                <div class="w-10 h-10 rounded-full border border-[var(--text-main)]/20 bg-[var(--text-main)]/5 flex items-center justify-center group-hover:bg-[var(--accent)]/10 group-hover:border-[var(--accent)]/40 group-hover:text-[var(--accent)] transition-all duration-500">
+                    <i data-lucide="menu" id="menu-icon" class="w-4 h-4" stroke-width="1.5"></i>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <div id="menu-overlay" class="fixed inset-0 bg-[var(--bg-main)]/95 backdrop-blur-2xl z-40 hidden items-center justify-center">
+        <div class="flex flex-col space-y-8 text-center">
+            <a href="javascript:void(0);" onclick="handleMenuClick('hakkımda')" class="interactive-el font-display text-5xl md:text-7xl font-medium text-[var(--text-main)]/50 hover:text-[var(--accent)] hover:italic transition-all duration-500 tracking-tight cursor-none">Hakkımda</a>
+            <a href="javascript:void(0);" onclick="handleMenuClick('hizmetler')" class="interactive-el font-display text-5xl md:text-7xl font-medium text-[var(--text-main)]/50 hover:text-[var(--accent)] hover:italic transition-all duration-500 tracking-tight cursor-none">Uzmanlık</a>
+            <a href="javascript:void(0);" onclick="handleMenuClick('portfolyo')" class="interactive-el font-display text-5xl md:text-7xl font-medium text-[var(--text-main)]/50 hover:text-[var(--accent)] hover:italic transition-all duration-500 tracking-tight cursor-none">Portfolyo</a>
+            <a href="javascript:void(0);" onclick="handleMenuClick('süreç')" class="interactive-el font-display text-5xl md:text-7xl font-medium text-[var(--text-main)]/50 hover:text-[var(--accent)] hover:italic transition-all duration-500 tracking-tight cursor-none">Yaklaşım</a>
+            <a href="javascript:void(0);" onclick="handleMenuClick('yolculuğum')" class="interactive-el font-display text-5xl md:text-7xl font-medium text-[var(--text-main)]/50 hover:text-[var(--accent)] hover:italic transition-all duration-500 tracking-tight cursor-none">Geçmiş</a>
+            <a href="javascript:void(0);" onclick="handleMenuClick('iletisim')" class="interactive-el font-display text-5xl md:text-7xl font-medium text-[var(--text-main)]/50 hover:text-[var(--accent)] hover:italic transition-all duration-500 tracking-tight cursor-none">İletişim</a>
+        </div>
+    </div>
+
+    <div id="home-view" class="relative z-10 block">
+        
+        <header class="relative min-h-screen w-full flex flex-col items-center justify-center pt-32">
+            <div class="container mx-auto px-6 flex flex-col items-center z-10">
+                <div class="reveal-text" style="transition-delay: 100ms;">
+                    <div class="reveal-text-inner mb-12 flex flex-col items-center">
+                        <span class="text-[10px] md:text-xs tracking-[0.4em] font-light text-[var(--accent)]/80 mb-6 block text-center">GRAFİK TASARIM</span>
+                        <h1 class="font-display text-[15vw] sm:text-[13vw] md:text-[11vw] font-medium leading-[1.1] tracking-tighter text-[var(--text-main)] text-center flex flex-row justify-center flex-wrap gap-x-4 md:gap-x-6 glow-text pb-4">
+                            <span>Selinay</span>
+                            <span class="italic text-[var(--accent)] opacity-90 pr-4">Benli</span>
+                        </h1>
+                    </div>
+                </div>
+                
+                 <div class="reveal-text" style="transition-delay: 400ms;">
+                    <p class="reveal-text-inner text-[var(--text-sec)] max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed text-center">
+                        Grafik tasarım, sosyal medya yönetimi ve yapay zekâ destekli içerik üretimi alanlarında çalışmalar yürütüyor;
+                        <span class="text-[var(--text-main)] font-medium"> dijital tasarım ve yaratıcı içerik odaklı projeler geliştiriyorum.</span>
+                    </p>
+                </div>
+
+                <div class="reveal-text" style="transition-delay: 600ms;">
+                    <div class="reveal-text-inner mt-16 flex flex-col md:flex-row gap-4 md:gap-6 items-center justify-center w-full">
+                        <button onclick="openWorks('ALL')" class="interactive-el w-full md:w-auto px-10 py-4 rounded-full border border-[var(--text-main)]/20 bg-[var(--text-main)]/5 backdrop-blur-md text-[var(--text-main)] font-light uppercase tracking-[0.2em] text-[10px] hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]/40 hover:text-[var(--accent)] hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] transition-all duration-500 flex items-center justify-center">
+                            PORTFOLYOYU GÖR
+                        </button>
+                        <button onclick="document.getElementById('iletisim').scrollIntoView({behavior: 'smooth'})" class="interactive-el w-full md:w-auto px-10 py-4 rounded-full border border-[var(--text-main)]/20 bg-[var(--text-main)]/5 backdrop-blur-md text-[var(--text-main)] font-light uppercase tracking-[0.2em] text-[10px] hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]/40 hover:text-[var(--accent)] hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] transition-all duration-500 flex items-center justify-center">
+                            İLETİŞİM
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="hakkımda" class="py-32 md:py-48 relative border-t border-[var(--border-color)]">
+            <div class="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-20 lg:gap-24">
+                <div class="w-full lg:w-5/12 flex justify-center fade-in-up">
+                    <div class="relative group w-full max-w-[85%] md:max-w-lg">
+                        <div class="absolute -top-5 left-1/2 -translate-x-1/2 w-24 md:w-32 h-8 md:h-10 bg-white/20 backdrop-blur-md border border-white/10 shadow-[0_4px_10px_rgba(0,0,0,0.1)] -rotate-3 z-30 pointer-events-none"></div>
+                        <div class="relative bg-[#F9F9F6] p-4 md:p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] rotate-2 group-hover:rotate-0 transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] z-20 w-full mx-auto">
+                            <div class="relative aspect-[4/3] overflow-hidden border border-black/5 bg-gray-200">
+                                <img src="/benimhakkimda/selinaybenli.jpg" alt="Selinay" class="w-full h-full object-cover grayscale-[35%] sepia-[25%] contrast-[110%] brightness-[0.95]" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80'" />
+                                <div class="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-7/12 flex flex-col justify-center text-center lg:text-left">
+                    <div class="reveal-text">
+                        <h2 class="reveal-text-inner font-display text-5xl md:text-7xl font-medium text-[var(--text-main)] mb-12 tracking-tight">
+                            Benim <br class="hidden lg:block"/><span class="italic text-[var(--accent)] glow-text">Hakkımda.</span>
+                        </h2>
+                    </div>
+                    <div class="space-y-8 text-base md:text-lg text-[var(--text-sec)] font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        <p class="fade-in-up" style="transition-delay: 100ms;">Merhaba, ben Selinay. 22 yaşımdayım. Grafik tasarım ve sosyal medya alanında; markalar için dijital dünyada karşılığı olan görsel sistemler ve içerikler üretiyorum. Sosyal medya tasarımları, kreatif kampanya görselleri, motion tabanlı içerikler ve yapay zekâ destekli üretim süreçleriyle çalışıyorum.</p>
+                        <p class="fade-in-up" style="transition-delay: 200ms;">Her projede markanın kimliğini, hedef kitlesini ve iletişim kurduğu mecrayı merkeze alırım. Amacım yalnızca dikkat çeken işler üretmek değil; tutarlı, sürdürülebilir ve markayı doğru şekilde temsil eden görsel yapılar oluşturmaktır.</p>
+                        <p class="fade-in-up" style="transition-delay: 300ms;">Ayrıca üretim sürecimi besleyen alanlara da zaman ayırmayı seviyorum. Dijital çizimler yapmak ve fotoğrafçılıkla ilgilenmek, görsel bakış açımı geliştiriyor ve tasarımlarıma farklı bir perspektif katıyor. Bu yüzden detay odaklı çalışır; görsel gücü, amaca hizmet eden bir yapı ile birleştirmeyi önemserim.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hizmetler" class="py-32 md:py-48 relative">
+            <div class="container mx-auto px-6">
+                <div class="reveal-text">
+                    <div class="reveal-text-inner mb-24">
+                        <h2 class="font-display text-5xl md:text-7xl font-medium text-[var(--text-main)] tracking-tight leading-none">
+                            Üretim <br/><span class="italic text-[var(--accent)] glow-text">Disiplinleri.</span>
+                        </h2>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                    <div class="fade-in-up group p-10 md:p-14 rounded-3xl border border-[var(--border-color)] bg-[var(--text-main)]/[0.02] backdrop-blur-sm hover:bg-[var(--accent)]/[0.04] hover:border-[var(--accent)]/20 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 flex flex-col h-full" style="transition-delay: 0ms;">
+                        <div class="mb-10 text-[var(--text-main)]/40 group-hover:text-[var(--accent)] transition-colors duration-500"><i data-lucide="layers" class="w-6 h-6" stroke-width="1.5"></i></div>
+                        <h3 class="font-display text-3xl font-medium mb-6 text-[var(--text-main)]">Görsel Kimlik</h3>
+                        <p class="text-[var(--text-sec)] font-light leading-relaxed flex-grow">Markanın özünü yansıtan, tutarlı ve zamansız kurumsal kimlik sistemleri kurguluyorum.</p>
+                    </div>
+                    <div class="fade-in-up md:mt-16 group p-10 md:p-14 rounded-3xl border border-[var(--border-color)] bg-[var(--text-main)]/[0.02] backdrop-blur-sm hover:bg-[var(--accent)]/[0.04] hover:border-[var(--accent)]/20 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 flex flex-col h-full" style="transition-delay: 150ms;">
+                        <div class="mb-10 text-[var(--text-main)]/40 group-hover:text-[var(--accent)] transition-colors duration-500"><i data-lucide="smartphone" class="w-6 h-6" stroke-width="1.5"></i></div>
+                        <h3 class="font-display text-3xl font-medium mb-6 text-[var(--text-main)]">Dijital Varlık</h3>
+                        <p class="text-[var(--text-sec)] font-light leading-relaxed flex-grow">Sosyal mecralar için estetik, amaca hizmet eden ve yüksek etkileşimli kampanyalar üretiyorum.</p>
+                    </div>
+                    <div class="fade-in-up group p-10 md:p-14 rounded-3xl border border-[var(--border-color)] bg-[var(--text-main)]/[0.02] backdrop-blur-sm hover:bg-[var(--accent)]/[0.04] hover:border-[var(--accent)]/20 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 flex flex-col h-full" style="transition-delay: 300ms;">
+                        <div class="mb-10 text-[var(--text-main)]/40 group-hover:text-[var(--accent)] transition-colors duration-500"><i data-lucide="film" class="w-6 h-6" stroke-width="1.5"></i></div>
+                        <h3 class="font-display text-3xl font-medium mb-6 text-[var(--text-main)]">Hareketli Görüntü</h3>
+                        <p class="text-[var(--text-sec)] font-light leading-relaxed flex-grow">Durağan tasarımları dinamik kurgular, reels ve tipografik animasyonlarla hayata geçiriyorum.</p>
+                    </div>
+                    <div class="fade-in-up md:mt-16 group p-10 md:p-14 rounded-3xl border border-[var(--border-color)] bg-[var(--text-main)]/[0.02] backdrop-blur-sm hover:bg-[var(--accent)]/[0.04] hover:border-[var(--accent)]/20 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 flex flex-col h-full" style="transition-delay: 450ms;">
+                        <div class="mb-10 text-[var(--text-main)]/40 group-hover:text-[var(--accent)] transition-colors duration-500"><i data-lucide="aperture" class="w-6 h-6" stroke-width="1.5"></i></div>
+                        <h3 class="font-display text-3xl font-medium mb-6 text-[var(--text-main)]">AI Sentezi</h3>
+                        <p class="text-[var(--text-sec)] font-light leading-relaxed flex-grow">Ürün gerçekliğini koruyan, yüksek kaliteli ve atmosferik yapay zekâ üretimleri gerçekleştiriyorum.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="portfolyo" class="py-40 relative border-y border-[var(--border-color)] overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000')] bg-cover bg-center opacity-[0.02] mix-blend-multiply"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <div class="reveal-text">
+                    <h2 class="reveal-text-inner font-display text-5xl md:text-8xl font-medium tracking-tight mb-10 text-[var(--text-main)]">
+                        Seçilmiş <span class="italic text-[var(--accent)] glow-text">İşler</span>
+                    </h2>
+                </div>
+                <div class="fade-in-up" style="transition-delay: 200ms;">
+                    <button onclick="openWorks('ALL')" class="interactive-el group mt-8 inline-flex items-center gap-6 px-10 py-5 rounded-full border border-[var(--text-main)]/20 bg-[var(--text-main)]/5 backdrop-blur-md text-[var(--text-main)] font-light tracking-[0.3em] uppercase text-xs hover:bg-[var(--text-main)] hover:text-[var(--bg-main)] transition-all duration-700 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+                        PORTFOLYOYU GÖR <span class="w-1 h-1 rounded-full bg-current group-hover:scale-150 transition-all"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <section id="süreç" class="py-32 md:py-48">
+            <div class="container mx-auto px-6">
+                <div class="reveal-text">
+                    <h2 class="reveal-text-inner font-display text-5xl md:text-7xl font-medium text-center mb-32 tracking-tight text-[var(--text-main)]">
+                        Kreatif <span class="italic text-[var(--accent)] glow-text">Süreç</span>
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+                    <div class="fade-in-up flex flex-col group relative" style="transition-delay: 0ms;">
+                        <div class="font-display text-6xl md:text-8xl font-medium text-[var(--text-main)]/5 group-hover:text-[var(--accent)]/30 transition-all duration-1000 mb-6 group-hover:translate-x-2 transform ease-[cubic-bezier(0.16,1,0.3,1)]">01</div>
+                        <div class="pt-8 border-t border-[var(--border-color)] group-hover:border-transparent transition-colors duration-700 relative">
+                            <div class="absolute top-0 left-0 w-0 h-[1px] bg-[var(--accent)] group-hover:w-full transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_15px_rgba(139,92,246,0.5)] opacity-0 group-hover:opacity-100"></div>
+                            <span class="text-[10px] tracking-[0.3em] font-light text-[var(--accent)]/80 mb-4 block uppercase">FAZ 01</span>
+                            <h3 class="font-display text-3xl font-medium text-[var(--text-main)] mb-4">Brief ve Hedef</h3>
+                            <p class="text-[var(--text-sec)] font-light leading-relaxed">Markanın ihtiyaçlarını, hedef kitlesini ve proje amacını netleştiririm.</p>
+                        </div>
+                    </div>
+                    <div class="fade-in-up flex flex-col group relative" style="transition-delay: 150ms;">
+                        <div class="font-display text-6xl md:text-8xl font-medium text-[var(--text-main)]/5 group-hover:text-[var(--accent)]/30 transition-all duration-1000 mb-6 group-hover:translate-x-2 transform ease-[cubic-bezier(0.16,1,0.3,1)]">02</div>
+                        <div class="pt-8 border-t border-[var(--border-color)] group-hover:border-transparent transition-colors duration-700 relative">
+                            <div class="absolute top-0 left-0 w-0 h-[1px] bg-[var(--accent)] group-hover:w-full transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_15px_rgba(139,92,246,0.5)] opacity-0 group-hover:opacity-100"></div>
+                            <span class="text-[10px] tracking-[0.3em] font-light text-[var(--accent)]/80 mb-4 block uppercase">FAZ 02</span>
+                            <h3 class="font-display text-3xl font-medium text-[var(--text-main)] mb-4">Konsept ve Tasarım</h3>
+                            <p class="text-[var(--text-sec)] font-light leading-relaxed">Moodboard oluşturur, farklı görsel yaklaşımlar ve tasarım yönleri belirlerim.</p>
+                        </div>
+                    </div>
+                    <div class="fade-in-up flex flex-col group relative" style="transition-delay: 300ms;">
+                        <div class="font-display text-6xl md:text-8xl font-medium text-[var(--text-main)]/5 group-hover:text-[var(--accent)]/30 transition-all duration-1000 mb-6 group-hover:translate-x-2 transform ease-[cubic-bezier(0.16,1,0.3,1)]">03</div>
+                        <div class="pt-8 border-t border-[var(--border-color)] group-hover:border-transparent transition-colors duration-700 relative">
+                            <div class="absolute top-0 left-0 w-0 h-[1px] bg-[var(--accent)] group-hover:w-full transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_15px_rgba(139,92,246,0.5)] opacity-0 group-hover:opacity-100"></div>
+                            <span class="text-[10px] tracking-[0.3em] font-light text-[var(--accent)]/80 mb-4 block uppercase">FAZ 03</span>
+                            <h3 class="font-display text-3xl font-medium text-[var(--text-main)] mb-4">Üretim</h3>
+                            <p class="text-[var(--text-sec)] font-light leading-relaxed">Tasarım, motion içerikler ve yapay zekâ destekli üretim sürecini yürütürüm.</p>
+                        </div>
+                    </div>
+                    <div class="fade-in-up flex flex-col group relative" style="transition-delay: 450ms;">
+                        <div class="font-display text-6xl md:text-8xl font-medium text-[var(--text-main)]/5 group-hover:text-[var(--accent)]/30 transition-all duration-1000 mb-6 group-hover:translate-x-2 transform ease-[cubic-bezier(0.16,1,0.3,1)]">04</div>
+                        <div class="pt-8 border-t border-[var(--border-color)] group-hover:border-transparent transition-colors duration-700 relative">
+                            <div class="absolute top-0 left-0 w-0 h-[1px] bg-[var(--accent)] group-hover:w-full transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_15px_rgba(139,92,246,0.5)] opacity-0 group-hover:opacity-100"></div>
+                            <span class="text-[10px] tracking-[0.3em] font-light text-[var(--accent)]/80 mb-4 block uppercase">FAZ 04</span>
+                            <h3 class="font-display text-3xl font-medium text-[var(--text-main)] mb-4">Teslim ve Revize</h3>
+                            <p class="text-[var(--text-sec)] font-light leading-relaxed">Final dosyalarını hazırlar, yayınlanacağı mecralara uygun düzenlemeleri yaparım.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="yolculuğum" class="py-32 md:py-48 border-t border-[var(--border-color)] bg-gradient-to-b from-transparent to-[var(--bg-sec)]">
+            <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-32">
+                <div>
+                    <h2 class="fade-in-up font-display text-4xl md:text-5xl font-medium mb-16 text-[var(--text-main)] tracking-tight">Mesleki <span class="italic text-[var(--accent)] glow-text">Geçmiş</span></h2>
+                    <div class="space-y-16">
+                        <div class="fade-in-up group relative pl-8 border-l border-[var(--text-main)]/10 hover:border-[var(--accent)]/50 transition-colors duration-500" style="transition-delay: 0ms;">
+                            <div class="absolute top-0 -left-[5px] w-2 h-2 rounded-full bg-[var(--accent)]/50 group-hover:bg-[var(--accent)] group-hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all duration-500"></div>
+                            <div class="pb-2">
+                                <span class="text-[10px] font-light tracking-[0.2em] text-[var(--text-main)]/40 uppercase mb-3 block">2025 - ŞİMDİ</span>
+                                <h3 class="font-display text-2xl font-medium text-[var(--text-main)] mb-1">Artı Çizgi Reklam Ajansı</h3>
+                                <h4 class="text-sm font-medium text-[var(--accent)] mb-4">Grafik Tasarımcı</h4>
+                                <p class="text-sm text-[var(--text-sec)] font-light leading-relaxed">Aktif olarak markalar için sosyal medya içerikleri, hareketli grafik (motion) animasyonları ve yapay zekâ destekli görsel, video ve ses üretim çalışmaları yürütüyorum.</p>
+                            </div>
+                        </div>
+                        <div class="fade-in-up group relative pl-8 border-l border-[var(--text-main)]/10 hover:border-[var(--accent)]/50 transition-colors duration-500" style="transition-delay: 150ms;">
+                            <div class="absolute top-0 -left-[5px] w-2 h-2 rounded-full bg-[var(--accent)]/50 group-hover:bg-[var(--accent)] group-hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all duration-500"></div>
+                            <div class="pb-2">
+                                <span class="text-[10px] font-light tracking-[0.2em] text-[var(--text-main)]/40 uppercase mb-3 block">2025</span>
+                                <h3 class="font-display text-2xl font-medium text-[var(--text-main)] mb-1">Reklamartgo Ajansı</h3>
+                                <h4 class="text-sm font-medium text-[var(--accent)] mb-4">Grafik Tasarımcı</h4>
+                                <p class="text-sm text-[var(--text-sec)] font-light leading-relaxed">2 ay boyunca markalara yönelik sosyal medya tasarımlarını hazırladım ve kreatif üretim süreçlerini yönettim.</p>
+                            </div>
+                        </div>
+                        <div class="fade-in-up group relative pl-8 border-l border-[var(--text-main)]/10 hover:border-[var(--accent)]/50 transition-colors duration-500" style="transition-delay: 300ms;">
+                            <div class="absolute top-0 -left-[5px] w-2 h-2 rounded-full bg-[var(--accent)]/50 group-hover:bg-[var(--accent)] group-hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all duration-500"></div>
+                            <div class="pb-2">
+                                <span class="text-[10px] font-light tracking-[0.2em] text-[var(--text-main)]/40 uppercase mb-3 block">2024</span>
+                                <h3 class="font-display text-2xl font-medium text-[var(--text-main)] mb-1">Zexpa Apparel</h3>
+                                <h4 class="text-sm font-medium text-[var(--accent)] mb-4">Grafik Tasarımcı</h4>
+                                <p class="text-sm text-[var(--text-sec)] font-light leading-relaxed">3 ay boyunca e-ticaret platformlarında yer alan ürünlerin baskı süreçlerine yönelik grafik tasarım çalışmalarını gerçekleştirdim.</p>
+                            </div>
+                        </div>
+                        <div class="fade-in-up group relative pl-8 border-l border-[var(--text-main)]/10 hover:border-[var(--accent)]/50 transition-colors duration-500" style="transition-delay: 450ms;">
+                            <div class="absolute top-0 -left-[5px] w-2 h-2 rounded-full bg-[var(--accent)]/50 group-hover:bg-[var(--accent)] group-hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all duration-500"></div>
+                            <div class="pb-2">
+                                <span class="text-[10px] font-light tracking-[0.2em] text-[var(--text-main)]/40 uppercase mb-3 block">2024</span>
+                                <h3 class="font-display text-2xl font-medium text-[var(--text-main)] mb-1">İstanbul Arel Üniversitesi</h3>
+                                <h4 class="text-sm font-medium text-[var(--accent)] mb-4">Önlisans Eğitimi</h4>
+                                <p class="text-sm text-[var(--text-sec)] font-light leading-relaxed">Grafik Tasarımı Bölümü.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="beceriler">
+                    <h2 class="fade-in-up font-display text-4xl md:text-5xl font-medium mb-16 text-[var(--text-main)] tracking-tight">Teknik <span class="italic text-[var(--accent)] glow-text">Donanım</span></h2>
+                    <div class="space-y-1">
+                        <p class="fade-in-up text-[var(--text-sec)] mb-16 text-base font-light leading-relaxed" style="transition-delay: 100ms;">Modern tasarım standartlarını yakalamak ve üst düzey çıktılar üretmek için hakim olduğum ekosistem.</p>
+                        <div class="p-8 md:p-12 rounded-3xl border border-[var(--border-color)] bg-[var(--text-main)]/[0.02] backdrop-blur-sm">
+                            <div class="mb-8 group reveal-target">
+                                <div class="flex justify-between mb-3"><span class="text-[var(--text-main)] font-light tracking-widest text-xs md:text-sm uppercase opacity-80">Adobe Photoshop</span><span class="text-[var(--accent)] font-light text-xs opacity-80">90%</span></div>
+                                <div class="w-full h-[6px] bg-[var(--accent)]/10 rounded-full relative overflow-visible mt-1"><div class="skill-bar-fill absolute top-0 left-0 h-full bg-[var(--accent)] rounded-full shadow-[0_0_20px_rgba(139,92,246,0.7)]" style="width: 90%;"></div></div>
+                            </div>
+                            <div class="mb-8 group reveal-target">
+                                <div class="flex justify-between mb-3"><span class="text-[var(--text-main)] font-light tracking-widest text-xs md:text-sm uppercase opacity-80">Adobe Illustrator</span><span class="text-[var(--accent)] font-light text-xs opacity-80">90%</span></div>
+                                <div class="w-full h-[6px] bg-[var(--accent)]/10 rounded-full relative overflow-visible mt-1"><div class="skill-bar-fill absolute top-0 left-0 h-full bg-[var(--accent)] rounded-full shadow-[0_0_20px_rgba(139,92,246,0.7)]" style="width: 90%;"></div></div>
+                            </div>
+                            <div class="mb-8 group reveal-target">
+                                <div class="flex justify-between mb-3"><span class="text-[var(--text-main)] font-light tracking-widest text-xs md:text-sm uppercase opacity-80">Adobe InDesign</span><span class="text-[var(--accent)] font-light text-xs opacity-80">70%</span></div>
+                                <div class="w-full h-[6px] bg-[var(--accent)]/10 rounded-full relative overflow-visible mt-1"><div class="skill-bar-fill absolute top-0 left-0 h-full bg-[var(--accent)] rounded-full shadow-[0_0_20px_rgba(139,92,246,0.7)]" style="width: 70%;"></div></div>
+                            </div>
+                            <div class="mb-8 group reveal-target">
+                                <div class="flex justify-between mb-3"><span class="text-[var(--text-main)] font-light tracking-widest text-xs md:text-sm uppercase opacity-80">Figma</span><span class="text-[var(--accent)] font-light text-xs opacity-80">65%</span></div>
+                                <div class="w-full h-[6px] bg-[var(--accent)]/10 rounded-full relative overflow-visible mt-1"><div class="skill-bar-fill absolute top-0 left-0 h-full bg-[var(--accent)] rounded-full shadow-[0_0_20px_rgba(139,92,246,0.7)]" style="width: 65%;"></div></div>
+                            </div>
+                            <div class="mb-8 group reveal-target">
+                                <div class="flex justify-between mb-3"><span class="text-[var(--text-main)] font-light tracking-widest text-xs md:text-sm uppercase opacity-80">CapCut / Premiere</span><span class="text-[var(--accent)] font-light text-xs opacity-80">80%</span></div>
+                                <div class="w-full h-[6px] bg-[var(--accent)]/10 rounded-full relative overflow-visible mt-1"><div class="skill-bar-fill absolute top-0 left-0 h-full bg-[var(--accent)] rounded-full shadow-[0_0_20px_rgba(139,92,246,0.7)]" style="width: 80%;"></div></div>
+                            </div>
+                            <div class="mb-8 group reveal-target">
+                                <div class="flex justify-between mb-3"><span class="text-[var(--text-main)] font-light tracking-widest text-xs md:text-sm uppercase opacity-80">Generative AI</span><span class="text-[var(--accent)] font-light text-xs opacity-80">90%</span></div>
+                                <div class="w-full h-[6px] bg-[var(--accent)]/10 rounded-full relative overflow-visible mt-1"><div class="skill-bar-fill absolute top-0 left-0 h-full bg-[var(--accent)] rounded-full shadow-[0_0_20px_rgba(139,92,246,0.7)]" style="width: 90%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="iletisim" class="min-h-screen flex flex-col justify-center py-32 px-6 relative overflow-hidden bg-[var(--bg-main)]">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] rounded-full bg-[var(--accent)]/10 blur-[150px] pointer-events-none"></div>
+
+            <div class="relative z-10 container mx-auto text-center flex flex-col items-center justify-center">
+                <div class="fade-in-up flex flex-col items-center">
+                    <span class="text-[10px] font-light tracking-[0.4em] uppercase text-[var(--accent)]/80 mb-10 block">YENİ BİR FİKİR Mİ VAR?</span>
+                    <h2 class="font-display text-[14vw] sm:text-[11vw] md:text-[9vw] lg:text-[8rem] font-medium tracking-tighter leading-[1.1] text-[var(--text-main)] flex flex-row justify-center flex-wrap gap-x-4 md:gap-x-8 pb-4">
+                        <span>İletişime</span><span class="italic text-[var(--accent)] glow-text pr-4">Geçelim.</span>
+                    </h2>
+                </div>
+
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=selinaybenliii@gmail.com" target="_blank" rel="noopener noreferrer" class="fade-in-up interactive-el inline-block mt-10 text-lg md:text-2xl font-light tracking-widest text-[var(--text-main)]/70 border-b border-[var(--accent)]/40 pb-2 hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all duration-500 mb-24 glow-text" style="transition-delay: 200ms;">
+                    selinaybenliii@gmail.com
+                </a>
+
+                <div class="fade-in-up flex justify-center gap-8 flex-wrap" style="transition-delay: 400ms;">
+                    <a href="https://www.linkedin.com/in/selinaybenli/" target="_blank" rel="noopener noreferrer" class="interactive-el text-xs font-light tracking-[0.2em] uppercase text-[var(--text-main)]/50 hover:text-[var(--accent)] transition-colors">LINKEDIN</a>
+                    <a href="https://instagram.com/selinaybenlii" target="_blank" rel="noopener noreferrer" class="interactive-el text-xs font-light tracking-[0.2em] uppercase text-[var(--text-main)]/50 hover:text-[var(--accent)] transition-colors">INSTAGRAM</a>
+                    <a href="https://wa.me/905339783380" target="_blank" rel="noopener noreferrer" class="interactive-el text-xs font-light tracking-[0.2em] uppercase text-[var(--text-main)]/50 hover:text-[var(--accent)] transition-colors">WHATSAPP</a>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 w-full text-center text-[var(--text-main)]/30 text-[10px] font-light tracking-[0.3em] uppercase">
+                <p>© 2025 SELİNAY BENLİ. ISTANBUL.</p>
+            </div>
+        </footer>
+    </div>
+    <div id="works-view" class="relative z-10 hidden min-h-screen bg-transparent text-[var(--text-main)] pt-32 pb-32 px-6 fade-in-up is-visible" style="transition-duration: 1000ms;">
+        <div class="container mx-auto relative z-10 max-w-[90rem]">
+            
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-32 gap-12 border-b border-[var(--border-color)] pb-16">
+                <div class="w-full lg:w-auto">
+                    <button onclick="closeWorks()" class="interactive-el flex items-center gap-4 text-[var(--text-main)]/60 hover:text-[var(--accent)] transition-all duration-500 mb-16 group font-light tracking-[0.2em] uppercase text-xs">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-2 transition-transform duration-500" stroke-width="1.5"></i> GERİ DÖN
+                    </button>
+                    
+                    <div class="max-w-2xl">
+                        <h2 class="font-display text-6xl md:text-8xl font-medium mb-6 leading-none tracking-tight text-[var(--text-main)]">
+                            <span id="works-main-title">Tüm</span> <br/><span id="works-highlight-title" class="text-[var(--accent)] italic glow-text">İşlerim</span>
+                        </h2>
+                        <p id="works-desc" class="text-[var(--text-sec)] text-lg font-light mt-8 leading-relaxed max-w-lg">
+                            Farklı alanlarda ürettiğim tüm çalışmaları bir araya getirdim. Aşağı kaydırarak inceleyebilirsin.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-4 lg:max-w-md lg:justify-end" id="filter-container">
+                    </div>
+            </div>
+
+            <div id="gallery-content" class="space-y-40"></div>
+        </div>
+    </div>
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-6 lg:p-12 modal-enter">
+        <div class="absolute inset-0 bg-[var(--bg-main)]/90 backdrop-blur-2xl" onclick="closeModal()"></div>
+        
+        <div class="modal-content-enter relative bg-[var(--bg-sec)]/90 backdrop-blur-3xl w-full max-w-[90rem] max-h-[95vh] lg:h-[85vh] overflow-hidden rounded-3xl border border-[var(--border-color)] shadow-[0_0_60px_rgba(0,0,0,0.05)] flex flex-col">
+            
+            <button onclick="closeModal()" class="interactive-el absolute top-4 right-4 md:top-6 md:right-6 z-[110] w-10 h-10 md:w-12 md:h-12 rounded-full bg-[var(--bg-main)]/50 backdrop-blur-xl border border-[var(--text-main)]/10 hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]/30 hover:text-[var(--accent)] text-[var(--text-main)] transition-all duration-500 flex items-center justify-center group shadow-md">
+                <i data-lucide="x" class="w-4 h-4 md:w-5 md:h-5 opacity-70 group-hover:opacity-100 group-hover:rotate-90 transition-all duration-500" stroke-width="1.5"></i>
+            </button>
+            
+            <div class="w-full h-full flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden relative z-10">
+                
+                <div class="w-full lg:w-2/3 relative flex-shrink-0 h-auto min-h-[50vh] lg:min-h-0 lg:h-full group flex items-center justify-center p-6 pt-20 md:p-12 lg:p-16 border-b lg:border-b-0 lg:border-r border-[var(--border-color)]">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/5 to-transparent pointer-events-none"></div>
+
+                    <div id="modal-media-container" class="relative w-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] ring-1 ring-[var(--border-color)] mx-auto">
+                        <div id="modal-slider" class="absolute inset-0 flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                            </div>
+                    </div>
+
+                    <div id="modal-nav-controls"></div>
+                </div>
+                
+                <div class="w-full lg:w-1/3 flex-shrink-0 p-6 md:p-8 lg:p-16 flex flex-col relative h-auto lg:h-full lg:overflow-y-auto justify-between bg-gradient-to-b from-transparent to-[var(--text-main)]/[0.01]">
+                    <div>
+                        <div id="modal-cat" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/20 text-[var(--accent)] font-light tracking-[0.2em] uppercase mb-8 text-[10px]">
+                            KATEGORİ
+                        </div>
+                        
+                        <h2 id="modal-title" class="font-display text-4xl lg:text-5xl font-medium text-[var(--text-main)] mb-10 leading-tight tracking-tight">Proje Adı</h2>
+                        
+                        <div class="grid grid-cols-1 gap-8 mb-12 text-sm border-t border-b border-[var(--border-color)] py-8">
+                            <div class="space-y-2">
+                                <span class="text-[var(--text-main)]/40 text-[10px] font-medium uppercase tracking-[0.2em] flex items-center gap-2"><i data-lucide="user" class="w-3 h-3"></i> MÜŞTERİ</span>
+                                <p id="modal-client" class="text-[var(--text-main)] font-light tracking-wide text-lg">Müşteri Adı</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6 pt-6 border-t border-[var(--border-color)]">
+                                <div class="space-y-2">
+                                    <span class="text-[var(--text-main)]/40 text-[10px] font-medium uppercase tracking-[0.2em] flex items-center gap-2"><i data-lucide="calendar" class="w-3 h-3"></i> TARİH</span>
+                                    <p id="modal-year" class="text-[var(--text-main)] font-light tracking-wide">2024</p>
+                                </div>
+                                <div class="space-y-2">
+                                    <span class="text-[var(--text-main)]/40 text-[10px] font-medium uppercase tracking-[0.2em] flex items-center gap-2"><i data-lucide="briefcase" class="w-3 h-3"></i> HİZMET</span>
+                                    <p id="modal-service" class="text-[var(--text-main)] font-light tracking-wide">Hizmet</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="modal-content-types-container" class="mb-12 hidden">
+                            <span class="text-[var(--text-main)]/40 text-[10px] font-medium uppercase tracking-[0.2em] mb-4 block">İÇERİK TÜRÜ</span>
+                            <div id="modal-content-types" class="grid gap-3 grid-cols-2">
+                                </div>
+                        </div>
+                        
+                        <div class="prose prose-invert prose-p:font-light prose-p:leading-relaxed prose-p:text-[var(--text-sec)]">
+                            <p id="modal-desc">Açıklama</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-8 mt-12 border-t border-[var(--border-color)] w-full">
+                        <button onclick="closeModal(); setTimeout(() => document.getElementById('iletisim').scrollIntoView({behavior: 'smooth'}), 100);" class="interactive-el w-full py-4 rounded-full border border-[var(--text-main)]/20 bg-[var(--text-main)] text-[var(--bg-main)] font-medium tracking-[0.2em] uppercase transition-all duration-500 hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white flex items-center justify-center gap-3 text-xs group hover:shadow-[0_0_30px_rgba(139,92,246,0.2)]">
+                            İLETİŞİME GEÇ <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- VERİLER ---
+        const projectsData = [
+            // SOCIAL
+            { id: '1', cat: 'SOCIAL', title: 'Çeşnili Döner', client: 'Çeşnili Döner Acıbadem / Pendik', year: '2025-2026', service: 'Sosyal Medya Yönetimi', description: 'Çeşnili Döner için özenle hazırladığım premium sosyal medya post ve hikâye tasarımları.', img: '/ceslinipost1.jpg', content: { POST: ['/ceslinipost1.jpg', '/ceslinipost2.jpg', '/ceslinipost3.jpg', '/ceslinipost4.jpg', '/ceslinipost5.jpg', '/ceslinipost6.jpg', '/ceslinipost7.jpg', '/ceslinipost8.jpg', '/ceslinipost9.jpg', '/ceslinipost10.jpg'], STORY: ['/cesnilihikaye1.jpg', '/cesnilihikaye2.jpg', '/cesnilihikaye3.jpg', '/cesnilihikaye4.jpg', '/cesnilihikaye5.jpg', '/cesnilihikaye6.jpg', '/cesnilihikaye7.jpg', '/cesnilihikaye8.jpg', '/cesnilihikaye9.jpg', '/cesnilihikaye10.jpg'] } },
+            { id: '2', cat: 'SOCIAL', title: 'Laçin Life', client: 'Laçin Life', year: '2025', service: 'Sosyal Medya Tasarımı', description: 'Laçin Life için özenle hazırladığım premium sosyal medya post tasarımları.', img: '/sosyalmedya/lacinlife/post/lacinlife1.jpg', content: { POST: ['/sosyalmedya/lacinlife/post/lacinlife1.jpg', '/sosyalmedya/lacinlife/post/lacinlife2.jpg', '/sosyalmedya/lacinlife/post/lacinlife3.jpg', '/sosyalmedya/lacinlife/post/lacinlife4.jpg', '/sosyalmedya/lacinlife/post/lacinlife5.jpg', '/sosyalmedya/lacinlife/post/lacinlife6.jpg', '/sosyalmedya/lacinlife/post/lacinlife7.jpg', '/sosyalmedya/lacinlife/post/lacinlife8.jpg', '/sosyalmedya/lacinlife/post/lacinlife9.jpg', '/sosyalmedya/lacinlife/post/lacinlife10.jpg'], STORY: [] } },
+            { id: '8', cat: 'SOCIAL', title: 'Romingo Akademi', client: 'Romingo Akademi', year: '2025', service: 'Sosyal Medya Yönetimi', description: 'Romingo Akademi için özenle hazırladığım premium sosyal medya post ve hikâye tasarımları.', img: '/sosyalmedya/romingo/Post/romingopost1.jpg', content: { POST: ['/sosyalmedya/romingo/Post/romingopost1.jpg', '/sosyalmedya/romingo/Post/romingopost2.jpg', '/sosyalmedya/romingo/Post/romingopost3.jpg', '/sosyalmedya/romingo/Post/romingopost4.jpg', '/sosyalmedya/romingo/Post/romingopost5.jpg', '/sosyalmedya/romingo/Post/romingopost6.jpg', '/sosyalmedya/romingo/Post/romingopost7.jpg', '/sosyalmedya/romingo/Post/romingopost8.jpg', '/sosyalmedya/romingo/Post/romingopost9.jpg', '/sosyalmedya/romingo/Post/romingopost10.jpg', '/sosyalmedya/romingo/Post/romingopost11.jpg', '/sosyalmedya/romingo/Post/romingopost12.jpg'], STORY: ['/sosyalmedya/romingo/hikaye/romingohikaye1.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye2.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye3.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye4.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye5.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye6.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye7.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye8.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye9.jpg', '/sosyalmedya/romingo/hikaye/romingohikaye10.jpg'] } },
+            { id: '9', cat: 'SOCIAL', title: 'Panetto Pastane', client: 'Panetto Pastane', year: '2025-2026', service: 'Sosyal Medya Yönetimi', description: 'Panetto Pastane için özenle hazırladığım premium sosyal medya post ve hikâye tasarımları.', img: '/sosyalmedya/panetto/post/panettopost1.jpg', content: { POST: ['/sosyalmedya/panetto/post/panettopost1.jpg', '/sosyalmedya/panetto/post/panettopost2.jpg', '/sosyalmedya/panetto/post/panettopost3.jpg', '/sosyalmedya/panetto/post/panettopost4.jpg', '/sosyalmedya/panetto/post/panettopost5.jpg', '/sosyalmedya/panetto/post/panettopost6.jpg', '/sosyalmedya/panetto/post/panettopost7.jpg', '/sosyalmedya/panetto/post/panettopost8.jpg', '/sosyalmedya/panetto/post/panettopost9.jpg', '/sosyalmedya/panetto/post/panettopost10.jpg'], STORY: ['/sosyalmedya/panetto/hikaye/panettohikaye1.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye2.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye3.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye4.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye5.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye6.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye7.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye8.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye9.jpg', '/sosyalmedya/panetto/hikaye/panettohikaye10.jpg'] } },
+            { id: '10', cat: 'SOCIAL', title: 'Tuzdan Balık', client: 'Tuzdan Balık', year: '2025-2026', service: 'Sosyal Medya Yönetimi', description: 'Tuzdan Balık için özenle hazırladığım premium sosyal medya post ve hikâye tasarımları.', img: '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost1.jpg', content: { POST: ['/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost1.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost2.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost3.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost4.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost5.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost6.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost7.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost8.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost9.jpg', '/sosyalmedya/tuzdanbalik/post/tuzdanbalikpost10.jpg'], STORY: ['/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye1.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye2.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye3.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye4.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye5.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye6.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye7.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye8.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye9.jpg', '/sosyalmedya/tuzdanbalik/hikaye/tuzdanbalikhikaye10.jpg'] } },
+            { id: '11', cat: 'SOCIAL', title: 'Tema Akademi', client: 'Tema Akademi', year: '2025-2026', service: 'Sosyal Medya Yönetimi', description: 'Tema Akademi için özenle hazırladığım marka kimliğini koruyan premium sosyal medya post ve hikâye tasarımları.', img: '/sosyalmedya/temaakademi/post/temaakademipost1.jpg', content: { POST: ['/sosyalmedya/temaakademi/post/temaakademipost1.jpg', '/sosyalmedya/temaakademi/post/temaakademipost2.jpg', '/sosyalmedya/temaakademi/post/temaakademipost3.jpg', '/sosyalmedya/temaakademi/post/temaakademipost4.jpg', '/sosyalmedya/temaakademi/post/temaakademipost5.jpg', '/sosyalmedya/temaakademi/post/temaakademipost6.jpg', '/sosyalmedya/temaakademi/post/temaakademipost7.jpg', '/sosyalmedya/temaakademi/post/temaakademipost8.jpg', '/sosyalmedya/temaakademi/post/temaakademipost9.jpg', '/sosyalmedya/temaakademi/post/temaakademipost10.jpg'], STORY: ['/sosyalmedya/temaakademi/hikaye/temaakademihikaye1.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye2.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye3.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye4.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye5.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye6.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye7.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye8.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye9.jpg', '/sosyalmedya/temaakademi/hikaye/temaakademihikaye10.jpg'] } },
+            { id: '12', cat: 'SOCIAL', title: 'Bayındır Et Kebap', client: 'Bayındır Et Kebap', year: '2025-2026', service: 'Sosyal Medya Yönetimi', description: 'Bayındır Et Kebap\'ın lezzetli ve güçlü duruşunu yansıtan, özenle hazırladığım sosyal medya hikâye tasarımları.', img: '/sosyalmedya/bayindir/hikaye/bayindirhikaye1.jpg', content: { POST: [], STORY: ['/sosyalmedya/bayindir/hikaye/bayindirhikaye1.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye2.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye3.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye4.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye5.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye6.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye7.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye8.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye9.jpg', '/sosyalmedya/bayindir/hikaye/bayindirhikaye10.jpg'] } },
+            { id: '6', cat: 'SOCIAL', title: 'Diğer Post Çalışmaları', client: 'Possion Isola, Petipure, Bandelo, Samsam Burger, Yenile ve USF İskele Kalıp', year: '2025', service: 'Sosyal Medya Yönetimi', description: 'Farklı sektörlerde faaliyet gösteren markalar için hazırladığım, yaratıcı bakış açısını ve güçlü görsel dili yansıtan seçkin örnek çalışmalar.', img: '/sosyalmedya/digerornekler/post/post1.jpg', content: { POST: ['/sosyalmedya/digerornekler/post/post1.jpg', '/sosyalmedya/digerornekler/post/post2.jpg', '/sosyalmedya/digerornekler/post/post3.jpg', '/sosyalmedya/digerornekler/post/post4.jpg', '/sosyalmedya/digerornekler/post/post5.jpg', '/sosyalmedya/digerornekler/post/post6.jpg', '/sosyalmedya/digerornekler/post/post7.jpg', '/sosyalmedya/digerornekler/post/post8.jpg', '/sosyalmedya/digerornekler/post/post9.jpg', '/sosyalmedya/digerornekler/post/post10.jpg', '/sosyalmedya/digerornekler/post/post11.jpg', '/sosyalmedya/digerornekler/post/post12.jpg', '/sosyalmedya/digerornekler/post/post13.jpg', '/sosyalmedya/digerornekler/post/post14.jpg', '/sosyalmedya/digerornekler/post/post15.jpg', '/sosyalmedya/digerornekler/post/post16.jpg', '/sosyalmedya/digerornekler/post/post17.jpg', '/sosyalmedya/digerornekler/post/post18.jpg', '/sosyalmedya/digerornekler/post/post19.jpg', '/sosyalmedya/digerornekler/post/post20.jpg', '/sosyalmedya/digerornekler/post/post21.jpg', '/sosyalmedya/digerornekler/post/post22.jpg'], STORY: [] } },
+            // MOTION
+            { id: '101', cat: 'MOTION', layout: 'STORY', title: 'Çeşnili Döner Menü Animasyonu', client: 'Çeşnili Acıbadem', year: '2025', service: 'Video Kurgu ve Motion', description: 'Çeşnili Döner için hazırladığım sade ve etkili menü tanıtım animasyonu.', img: '/motion/hikaye/hikaye1.mp4', content: { STORY: ['/motion/hikaye/hikaye1.mp4'] } },
+            { id: '102', cat: 'MOTION', layout: 'STORY', title: 'Yönder Okulları Bursluluk Sınavı Reels Videosu', client: 'Yönder Okulları', year: '2025', service: 'Video Kurgu ve Motion', description: 'Yönder Okulları için hazırladığım, dikkat çekici ve dinamik reels video çalışması.', img: '/motion/hikaye/hikaye2.mp4', content: { STORY: ['/motion/hikaye/hikaye2.mp4'] } },
+            { id: '103', cat: 'MOTION', layout: 'STORY', title: 'Yönder Okulları Bursluluk Sınavı Reels Videosu 2', client: 'Yönder Okulları', year: '2025', service: 'Video Kurgu ve Motion', description: 'Yönder Okulları için hazırladığım, dikkat çekici ve dinamik reels video çalışması.', img: '/motion/hikaye/hikaye3.mp4', content: { STORY: ['/motion/hikaye/hikaye3.mp4'] } },
+            { id: '104', cat: 'MOTION', layout: 'STORY', title: 'Bayındır Et Kebap Ürün Animasyonu', client: 'Bayındır Et Kebap', year: '2025', service: 'Video Kurgu ve Motion', description: 'Bayındır Et Kebap için hazırladığım, dikkat çekici ürün tanıtım animasyonu.', img: '/motion/hikaye/hikaye4.mp4', content: { STORY: ['/motion/hikaye/hikaye4.mp4'] } },
+            { id: '105', cat: 'MOTION', layout: 'STORY', title: 'Tuzdan Et Serkan Ocakbaşı Ürün Animasyonu', client: 'Tuzdan Et Serkan Ocakbaşı', year: '2025', service: 'Video Kurgu ve Motion', description: 'Tuzdan Et Serkan Ocakbaşı için hazırladığım, dikkat çekici ürün tanıtım animasyonu.', img: '/motion/hikaye/hikaye5.mp4', content: { STORY: ['/motion/hikaye/hikaye5.mp4'] } },
+            { id: '3', cat: 'MOTION', layout: 'STORY', title: 'Panetto Pastane Ürün Animasyonu', client: 'Panetto Pastane', year: '2025', service: 'Video Kurgu ve Motion', description: 'Panetto Pastane için hazırladığım, dikkat çekici ürün tanıtım animasyonu.', img: '/motion/hikaye/hikaye6.mp4', content: { STORY: ['/motion/hikaye/hikaye6.mp4'] } },
+            { id: '106', cat: 'MOTION', layout: 'POST', title: 'NLCortex-7B Hareketli İçerik Tasarımı', client: 'NLCortex-7B', year: '2025', service: 'Video Kurgu ve Motion', description: 'NLCortex-7B için hazırladığım modern hareketli post tasarımı.', img: '/motion/hikaye/post1.mp4', content: { POST: ['/motion/hikaye/post1.mp4'] } },
+            { id: '107', cat: 'MOTION', layout: 'POST', title: 'Panetto Pastane Hareketli İçerik Tasarımı', client: 'Panetto Pastane', year: '2025', service: 'Video Kurgu ve Motion', description: 'Panetto Pastane için hazırladığım, dikkat çekici ürün tanıtım animasyonu.', img: '/motion/hikaye/post2.mp4', content: { POST: ['/motion/hikaye/post2.mp4'] } },
+            { id: '108', cat: 'MOTION', layout: 'POST', title: 'Panetto Pastane Hareketli İçerik Tasarımı', client: 'Panetto Pastane', year: '2025', service: 'Video Kurgu ve Motion', description: 'Panetto Pastane için hazırladığım, dikkat çekici ürün tanıtım animasyonu.', img: '/motion/hikaye/post3.mp4', content: { POST: ['/motion/hikaye/post3.mp4'] } },
+            { id: '109', cat: 'MOTION', layout: 'POST', title: 'NLCortex-7B Hareketli İçerik Tasarımı', client: 'NLCortex-7B', year: '2025', service: 'Video Kurgu ve Motion', description: 'NLCortex-7B için hazırladığım modern hareketli post tasarımı.', img: '/motion/hikaye/post4.mp4', content: { POST: ['/motion/hikaye/post4.mp4'] } },
+            // AI
+            { id: 'ap1', cat: 'AI', subCat: 'AI_POST', title: 'Bayındır Et Kebap Hikaye Tasarımı', client: 'Bayındır Et Kebap', year: '2025', service: 'Yapay Zekâ Tasarımı', img: '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye1.jpg', description: 'Bayındır Et Kebap için yapay zekâ destekli, ürünü öne çıkaran özgün tasarımlar.', content: { POST: [], STORY: ['/yapayzeka/postvehikaye/bayindir/hikaye/hikaye1.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye2.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye3.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye4.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye5.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye6.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye7.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye8.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye9.jpg', '/yapayzeka/postvehikaye/bayindir/hikaye/hikaye10.jpg'] } },
+            { id: 'ap2', cat: 'AI', subCat: 'AI_POST', title: 'Dönerci Ali Usta Hikaye ve Post Tasarımı', client: 'Dönerci Ali Usta', year: '2025', service: 'Yapay Zekâ Tasarımı', img: '/yapayzeka/postvehikaye/dönercialiusta/post/post1.jpg', description: 'Dönerci Ali Usta için yapay zekâ destekli, ürünü öne çıkaran özgün tasarımlar.', content: { POST: ['/yapayzeka/postvehikaye/dönercialiusta/post/post1.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post2.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post3.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post4.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post5.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post6.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post7.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post8.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post9.jpg', '/yapayzeka/postvehikaye/dönercialiusta/post/post10.jpg'], STORY: ['/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye1.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye2.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye3.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye4.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye5.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye6.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye7.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye8.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye9.jpg', '/yapayzeka/postvehikaye/dönercialiusta/hikaye/hikaye10.jpg'] } },
+            { id: 'ap3', cat: 'AI', subCat: 'AI_POST', title: 'Kodaman Project Post Tasarımı', client: 'Kodaman Project', year: '2025-2026', service: 'Yapay Zekâ Tasarımı', img: '/yapayzeka/postvehikaye/kodaman/post/post1.jpg', description: 'Kodaman Project için yapay zekâ desteğiyle hazırladığım post tasarımları.', content: { POST: ['/yapayzeka/postvehikaye/kodaman/post/post1.jpg', '/yapayzeka/postvehikaye/kodaman/post/post2.jpg', '/yapayzeka/postvehikaye/kodaman/post/post3.jpg', '/yapayzeka/postvehikaye/kodaman/post/post4.jpg', '/yapayzeka/postvehikaye/kodaman/post/post5.jpg', '/yapayzeka/postvehikaye/kodaman/post/post6.jpg', '/yapayzeka/postvehikaye/kodaman/post/post7.jpg', '/yapayzeka/postvehikaye/kodaman/post/post8.jpg', '/yapayzeka/postvehikaye/kodaman/post/post9.jpg', '/yapayzeka/postvehikaye/kodaman/post/post10.jpg'], STORY: [] } },
+            { id: 'ap4', cat: 'AI', subCat: 'AI_POST', title: 'Özdemir Beton Post Tasarımı', client: 'Özdemir Beton', year: '2025-2026', service: 'Yapay Zekâ Tasarımı', img: '/yapayzeka/postvehikaye/özdemir/post/post1.jpg', description: 'Özdemir Beton için yapay zekâ desteğiyle hazırladığım post tasarımları.', content: { POST: ['/yapayzeka/postvehikaye/özdemir/post/post1.jpg', '/yapayzeka/postvehikaye/özdemir/post/post2.jpg', '/yapayzeka/postvehikaye/özdemir/post/post3.jpg', '/yapayzeka/postvehikaye/özdemir/post/post4.jpg', '/yapayzeka/postvehikaye/özdemir/post/post5.jpg', '/yapayzeka/postvehikaye/özdemir/post/post6.jpg', '/yapayzeka/postvehikaye/özdemir/post/post7.jpg', '/yapayzeka/postvehikaye/özdemir/post/post8.jpg', '/yapayzeka/postvehikaye/özdemir/post/post9.jpg', '/yapayzeka/postvehikaye/özdemir/post/post10.jpg'], STORY: [] } },
+            { id: 'ar1', cat: 'AI', subCat: 'AI_REELS', layout: 'STORY', title: '10 Kasım Yapay Zeka Anma Videosu', client: 'Kasso', year: '2025', service: 'Yapay Zeka Videosu', img: '/yapayzeka/reels/Kasso/reels1.mp4', description: '10 Kasım için hazırladığım, yapay zekâ destekli sinematik anma videosu.', content: { REELS: ['/yapayzeka/reels/Kasso/reels1.mp4'] } },
+            { id: 'ar2', cat: 'AI', subCat: 'AI_REELS', layout: 'STORY', title: 'Ürün Tanıtım Reels Videosu', client: 'Dönerci Ali Usta', year: '2026', service: 'Yapay Zeka Videosu', img: '/yapayzeka/reels/dönercialiusta/1.mp4', description: 'Dönerci Ali Usta için markanın enerjisini yansıtan, eğlenceli ve dikkat çekici bir ürün tanıtım videosu.', content: { REELS: ['/yapayzeka/reels/dönercialiusta/1.mp4'] } },
+            { id: 'av1', cat: 'AI', subCat: 'AI_VIDEO', layout: 'VIDEO', title: '10 Kasım Yapay Zeka Anma Videosu', client: 'Özdemir Beton', year: '2025', service: 'Yapay Zeka Videosu', img: '/yapayzeka/video/özdemir/video1.mp4', description: 'Özdemir Beton için 10 Kasım’a özel hazırladığım yapay zekâ destekli anma filmi.', content: { VIDEO: ['/yapayzeka/video/özdemir/video1.mp4'] } },
+            // PRINT (REKLAM & BASKI)
+            { id: 'pr1', cat: 'PRINT', layout: 'PORTRAIT', title: 'Çeşnili Döner Baskı ve Tanıtım Çalışmaları', client: 'Çeşnili Döner – Acıbadem / Pendik', year: '2025 – 2026', service: 'Reklam Tasarımı & Baskı Uygulamaları', img: '/reklambaski/cesnili/1.jpg', description: 'Çeşnili Döner’in Acıbadem ve Pendik şubeleri için marka kimliğine uygun branda, menü ve çeşitli baskı materyalleri tasarlanıp uygulandı.', content: { PORTRAIT: ['/reklambaski/cesnili/1.jpg', '/reklambaski/cesnili/2.jpg', '/reklambaski/cesnili/3.jpg', '/reklambaski/cesnili/4.jpg', '/reklambaski/cesnili/5.jpg', '/reklambaski/cesnili/6.jpg', '/reklambaski/cesnili/7.jpg'] } },
+            { id: 'pr2', cat: 'PRINT', layout: 'PORTRAIT', title: 'Dönerci Ali Usta Baskı ve Tanıtım Çalışmaları', client: 'Dönerci Ali Usta', year: '2025 – 2026', service: 'Reklam Tasarımı & Baskı Uygulamaları', img: '/reklambaski/dönercialiusta/1.jpg', description: 'Dönerci Ali Usta için marka kimliğine uygun branda, menü ve çeşitli baskı materyalleri tasarımları.', content: { PORTRAIT: ['/reklambaski/dönercialiusta/1.jpg', '/reklambaski/dönercialiusta/2.jpg', '/reklambaski/dönercialiusta/3.jpg', '/reklambaski/dönercialiusta/4.jpg', '/reklambaski/dönercialiusta/5.jpg', '/reklambaski/dönercialiusta/6.jpg'] } },
+            { id: 'pr3', cat: 'PRINT', layout: 'PORTRAIT', title: 'Bayındır Et Kebap Kurumsal Kimlik Çalışmaları', client: 'Bayındır Et Kebap', year: '2025 – 2026', service: 'Reklam Tasarımı & Baskı Uygulamaları', img: '/reklambaski/bayindiretkebap/1.jpg', description: 'Bayındır Et Kebap için marka kimliğine uygun kurumsal kimlik tanıtım çalışmaları.', content: { PORTRAIT: ['/reklambaski/bayindiretkebap/1.jpg', '/reklambaski/bayindiretkebap/2.jpg', '/reklambaski/bayindiretkebap/3.jpg', '/reklambaski/bayindiretkebap/4.jpg'] } },
+            { id: 'pr4', cat: 'PRINT', layout: 'PORTRAIT', title: 'Tuzdan Balık Baskı ve Tanıtım Çalışmaları', client: 'Tuzdan Balık', year: '2025 – 2026', service: 'Reklam Tasarımı & Baskı Uygulamaları', img: '/reklambaski/tuzdanbalik/1.jpg', description: 'Tuzdan Balık için hazırladığım marka kimliğine uygun branda ve menü tasarımları.', content: { PORTRAIT: ['/reklambaski/tuzdanbalik/1.jpg', '/reklambaski/tuzdanbalik/2.jpg', '/reklambaski/tuzdanbalik/3.jpg'] } }
+        ];
+
+        // --- GLOBAL STATE ---
+        let currentTheme = 'dark';
+        let isMenuOpen = false;
+        let savedScrollPos = 0;
+        let activeFilter = 'ALL';
+        let currentProject = null;
+        let activeContentType = 'POST';
+        let currentImageIndex = 0;
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- CUSTOM CURSOR ---
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+        });
+
+        // Hover effect for interactive elements
+        function attachCursorHover() {
+            document.querySelectorAll('a, button, .interactive-el, .cursor-pointer').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hovered'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hovered'));
+            });
+        }
+        attachCursorHover();
+
+        // --- THEME TOGGLE ---
+        function toggleTheme() {
+            const body = document.body;
+            const themeIconSun = document.getElementById('theme-icon-sun');
+            const themeIconMoon = document.getElementById('theme-icon-moon');
+            const blob1 = document.getElementById('blob1');
+            const blob2 = document.getElementById('blob2');
+            const blob3 = document.getElementById('blob3');
+
+            if (currentTheme === 'dark') {
+                currentTheme = 'light';
+                body.classList.remove('dark-mode');
+                
+                if (themeIconSun && themeIconMoon) {
+                    themeIconSun.classList.replace('block', 'hidden');
+                    themeIconMoon.classList.replace('hidden', 'block');
+                }
+                
+                blob1.classList.replace('opacity-10', 'opacity-25');
+                blob2.classList.replace('opacity-[0.06]', 'opacity-20');
+                blob3.classList.replace('opacity-5', 'opacity-15');
+            } else {
+                currentTheme = 'dark';
+                body.classList.add('dark-mode');
+                
+                if (themeIconSun && themeIconMoon) {
+                    themeIconMoon.classList.replace('block', 'hidden');
+                    themeIconSun.classList.replace('hidden', 'block');
+                }
+                
+                blob1.classList.replace('opacity-25', 'opacity-10');
+                blob2.classList.replace('opacity-20', 'opacity-[0.06]');
+                blob3.classList.replace('opacity-15', 'opacity-5');
+            }
+        }
+
+        // --- MENU LOGIC ---
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            const menuOverlay = document.getElementById('menu-overlay');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            if (isMenuOpen) {
+                menuOverlay.classList.remove('hidden');
+                menuOverlay.classList.add('flex');
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                menuOverlay.classList.add('hidden');
+                menuOverlay.classList.remove('flex');
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+
+        function handleMenuClick(id) {
+            toggleMenu();
+            
+            const worksView = document.getElementById('works-view');
+            const homeView = document.getElementById('home-view');
+            
+            // Eğer portfolyo sayfasındaysak anasayfaya dön, zaten anasayfadaysak kaydırmayı bozma
+            if (!worksView.classList.contains('hidden')) {
+                worksView.classList.add('hidden');
+                homeView.classList.remove('hidden');
+                homeView.style.display = 'block';
+                attachObservers();
+            }
+            
+            setTimeout(() => {
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // --- SCROLL REVEAL (Intersection Observer) ---
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Find inner elements for text/fade/skill
+                    const inners = entry.target.querySelectorAll('.reveal-text-inner, .skill-bar-fill');
+                    inners.forEach(el => el.classList.add('is-visible'));
+                    
+                    if (entry.target.classList.contains('reveal-text-inner') || entry.target.classList.contains('skill-bar-fill')) {
+                        entry.target.classList.add('is-visible');
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        function attachObservers() {
+            document.querySelectorAll('.reveal-text, .fade-in-up, .reveal-target').forEach(el => observer.observe(el));
+        }
+        attachObservers();
+
+        // --- ROUTING / VIEWS ---
+        function goHome() {
+            document.getElementById('works-view').classList.add('hidden');
+            document.getElementById('home-view').classList.remove('hidden');
+            document.getElementById('home-view').style.display = 'block';
+            window.scrollTo(0, savedScrollPos);
+            attachObservers();
+        }
+
+        function openWorks(category = 'ALL') {
+            savedScrollPos = window.scrollY;
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('works-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
+            renderWorksGallery(category);
+        }
+
+        function closeWorks() {
+            goHome();
+        }
+
+        // --- HELPER FUNCTIONS ---
+        function isVideo(src) {
+            if (!src) return false;
+            const ext = src.split('.').pop().toLowerCase();
+            return ['mp4', 'webm', 'ogg', 'mov'].includes(ext);
+        }
+
+        function safeMediaHTML(src, isGrid = false, extraClasses = "") {
+            if (isVideo(src)) {
+                return `
+                    <video src="${src}" 
+                        class="${extraClasses}" 
+                        muted loop playsinline 
+                        ${!isGrid ? 'controls autoplay' : ''}
+                        onmouseenter="if(${isGrid}) this.play().catch(e=>console.log(e))"
+                        onmouseleave="if(${isGrid}){ this.pause(); this.currentTime=0; }"
+                    ></video>`;
+            }
+            return `<img src="${src}" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80'" class="${extraClasses}" />`;
+        }
+
+        // --- WORKS GALLERY RENDERER ---
+        const filterBtns = [
+            { id: 'ALL', label: 'TÜMÜ' },
+            { id: 'SOCIAL', label: 'SOSYAL MEDYA' },
+            { id: 'MOTION', label: 'MOTION' },
+            { id: 'AI', label: 'YAPAY ZEKÂ' },
+            { id: 'PRINT', label: 'REKLAM & BASKI' }
+        ];
+
+        function renderWorksGallery(category) {
+            activeFilter = category;
+            
+            // Update Title
+            const titleMap = {
+                'SOCIAL': { m: 'Sosyal', h: 'Medya', d: 'Markalar için gönderi, hikâye ve kampanya odaklı sosyal medya tasarımlarımı bu bölümde bulabilirsin.' },
+                'MOTION': { m: 'Motion', h: 'Design', d: 'Reels videoları, tanıtım filmleri, tipografik animasyonlar ve kurguları bu bölümde inceleyebilirsin.' },
+                'AI': { m: 'Yapay Zekâ', h: '(AI)', d: 'Görsel, video ve ses alanlarında yapay zekâ destekli üretimler gerçekleştirdiğim çalışmalarıma bu bölümden ulaşabilirsin.' },
+                'PRINT': { m: 'Reklam', h: '& Baskı', d: 'Afiş, kurumsal kimlik, ambalaj ve basılı materyal tasarımlarımı bu bölümde inceleyebilirsin.' },
+                'ALL': { m: 'Tüm', h: 'İşlerim', d: 'Farklı alanlarda ürettiğim tüm çalışmaları bir araya getirdim. Aşağı kaydırarak inceleyebilirsin.' }
+            };
+            document.getElementById('works-main-title').innerText = titleMap[category].m;
+            document.getElementById('works-highlight-title').innerText = titleMap[category].h;
+            document.getElementById('works-desc').innerText = titleMap[category].d;
+
+            // Render Filters
+            const filterContainer = document.getElementById('filter-container');
+            filterContainer.innerHTML = filterBtns.map(f => `
+                <button onclick="renderWorksGallery('${f.id}')" class="interactive-el px-6 py-2.5 rounded-full text-[10px] font-medium tracking-[0.2em] uppercase transition-all duration-500 border ${activeFilter === f.id ? 'bg-[var(--accent)]/10 text-[var(--accent)] border-[var(--accent)]/50 shadow-[0_0_20px_rgba(139,92,246,0.15)]' : 'bg-transparent text-[var(--text-main)]/50 border-[var(--border-color)] hover:border-[var(--accent)]/30 hover:text-[var(--accent)] hover:bg-[var(--accent)]/5'}">
+                    ${f.label}
+                </button>
+            `).join('');
+
+            // Filter Data
+            let sectionsHTML = '';
+
+            const buildSectionTitle = (title) => `
+                <div class="fade-in-up mt-40 is-visible">
+                    <h3 class="font-display text-3xl md:text-5xl font-medium mb-16 text-[var(--text-main)] flex items-center gap-6 tracking-tight">
+                        <span class="w-16 h-[1px] bg-[var(--border-color)]"></span>${title}
+                    </h3>
+                </div>`;
+
+            const buildGridItem = (work, index, aspectClass, isAutoplayGrid) => {
+                const overlayIcon = isAutoplayGrid && isVideo(work.img) ? 'play' : '';
+                const videoPlayBtn = (!isVideo(work.img) && (work.cat==='MOTION' || work.subCat==='AI_REELS' || work.subCat==='AI_VIDEO')) 
+                    ? `<div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-16 h-16 rounded-full bg-[var(--bg-main)]/50 backdrop-blur-md flex items-center justify-center border border-[var(--text-main)]/10 opacity-0 group-hover:opacity-100 transition-all duration-700"><i data-lucide="play" fill="var(--text-main)" class="ml-1 w-5 h-5 text-[var(--text-main)] opacity-80"></i></div></div>` : '';
+                
+                return `
+                <div onclick="openModal('${work.id}')" class="cursor-pointer interactive-el group relative ${aspectClass} rounded-3xl bg-[var(--bg-main)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-[var(--accent)]/30 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-[0_0_40px_rgba(139,92,246,0.1)] overflow-hidden ${index % 2 === 1 ? 'lg:mt-16 md:mt-12 mt-0' : ''}">
+                    ${safeMediaHTML(work.img, isAutoplayGrid, "w-full h-full object-cover transition-transform duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 opacity-80 group-hover:opacity-100")}
+                    <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-main)]/95 via-[var(--bg-main)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="transform translate-y-4 group-hover:translate-y-0 transition-all duration-700 flex flex-col items-center gap-6">
+                            ${overlayIcon ? `<div class="w-16 h-16 rounded-full bg-[var(--accent)]/10 backdrop-blur-xl border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] shadow-[0_0_30px_rgba(139,92,246,0.15)]"><i data-lucide="${overlayIcon}" class="w-5 h-5" stroke-width="1.5"></i></div>` : ''}
+                            <span class="text-[var(--accent)] font-medium tracking-[0.3em] uppercase ${!overlayIcon ? 'text-sm' : 'text-xs'}">${overlayIcon ? 'İZLE' : 'İNCELE'}</span>
+                        </div>
+                    </div>
+                    ${videoPlayBtn}
+                </div>`;
+            };
+
+            // SOCIAL RENDER
+            if (category === 'SOCIAL' || category === 'ALL') {
+                const works = projectsData.filter(p => p.cat === 'SOCIAL');
+                if (works.length > 0) {
+                    if (category === 'ALL') sectionsHTML += buildSectionTitle('Sosyal Medya');
+                    sectionsHTML += `<div class="fade-in-up is-visible grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                        ${works.map((w, i) => buildGridItem(w, i, 'aspect-[4/5]', false)).join('')}
+                    </div>`;
+                }
+            }
+
+            // MOTION RENDER
+            if (category === 'MOTION' || category === 'ALL') {
+                const reels = projectsData.filter(p => p.cat === 'MOTION' && p.layout === 'STORY');
+                const posts = projectsData.filter(p => p.cat === 'MOTION' && p.layout === 'POST');
+                
+                if (reels.length > 0 || posts.length > 0) {
+                    if (category === 'ALL') sectionsHTML += buildSectionTitle('Motion Design');
+                    sectionsHTML += `<div class="space-y-40">`;
+                    if (reels.length > 0) {
+                        sectionsHTML += `<div class="fade-in-up is-visible"><h3 class="text-sm font-light mb-10 text-[var(--text-main)]/40 tracking-[0.3em] uppercase">REELS / STORY</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">${reels.map((w, i) => buildGridItem(w, i, 'aspect-[9/16]', true)).join('')}</div></div>`;
+                    }
+                    if (posts.length > 0) {
+                        sectionsHTML += `<div class="fade-in-up is-visible"><h3 class="text-sm font-light mb-10 text-[var(--text-main)]/40 tracking-[0.3em] uppercase">POST</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">${posts.map((w, i) => buildGridItem(w, i, 'aspect-[4/5]', true)).join('')}</div></div>`;
+                    }
+                    sectionsHTML += `</div>`;
+                }
+            }
+
+            // AI RENDER
+            if (category === 'AI' || category === 'ALL') {
+                const posts = projectsData.filter(p => p.cat === 'AI' && p.subCat === 'AI_POST');
+                const reels = projectsData.filter(p => p.cat === 'AI' && p.subCat === 'AI_REELS');
+                const videos = projectsData.filter(p => p.cat === 'AI' && p.subCat === 'AI_VIDEO');
+
+                if (posts.length > 0 || reels.length > 0 || videos.length > 0) {
+                    if (category === 'ALL') sectionsHTML += buildSectionTitle('Yapay Zekâ');
+                    sectionsHTML += `<div class="space-y-40">`;
+                    if(posts.length > 0) {
+                        sectionsHTML += `<div class="fade-in-up is-visible"><h3 class="text-sm font-light mb-10 text-[var(--text-main)]/40 tracking-[0.3em] uppercase">POST & STORY</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">${posts.map((w,i) => buildGridItem(w, i, 'aspect-[4/5]', false)).join('')}</div></div>`;
+                    }
+                    if(reels.length > 0) {
+                        sectionsHTML += `<div class="fade-in-up is-visible"><h3 class="text-sm font-light mb-10 text-[var(--text-main)]/40 tracking-[0.3em] uppercase">REELS</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">${reels.map((w,i) => buildGridItem(w, i, 'aspect-[9/16]', true)).join('')}</div></div>`;
+                    }
+                    if(videos.length > 0) {
+                         sectionsHTML += `<div class="fade-in-up is-visible"><h3 class="text-sm font-light mb-10 text-[var(--text-main)]/40 tracking-[0.3em] uppercase">VİDEOLAR</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">${videos.map((w,i) => buildGridItem(w, i, 'aspect-video', true)).join('')}</div></div>`;
+                    }
+                    sectionsHTML += `</div>`;
+                }
+            }
+
+            // PRINT RENDER
+            if (category === 'PRINT' || category === 'ALL') {
+                const works = projectsData.filter(p => p.cat === 'PRINT');
+                if (works.length > 0) {
+                    if (category === 'ALL') sectionsHTML += buildSectionTitle('Reklam & Baskı');
+                    sectionsHTML += `<div class="fade-in-up is-visible grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">`;
+                    sectionsHTML += works.map((w, i) => buildGridItem(w, i, 'aspect-[4/5]', false)).join('');
+                    sectionsHTML += `</div>`;
+                }
+            }
+
+            document.getElementById('gallery-content').innerHTML = sectionsHTML;
+            lucide.createIcons();
+            attachCursorHover();
+        }
+
+        // --- MODAL LOGIC ---
+        function openModal(projectId) {
+            currentProject = projectsData.find(p => p.id === projectId);
+            if (!currentProject) return;
+
+            // Determine active content type initially
+            activeContentType = 'POST';
+            if (currentProject.cat === 'MOTION') {
+                activeContentType = (currentProject.content?.POST?.length > 0) ? 'POST' : 'STORY';
+            } else if (currentProject.cat === 'AI') {
+                if (currentProject.subCat === 'AI_POST') activeContentType = (currentProject.content?.POST?.length > 0) ? 'POST' : 'STORY';
+                else if (currentProject.subCat === 'AI_REELS') activeContentType = 'REELS';
+                else if (currentProject.subCat === 'AI_VIDEO') activeContentType = 'VIDEO';
+            } else if (currentProject.cat === 'PRINT') {
+                activeContentType = currentProject.layout || 'PORTRAIT';
+            } else if (currentProject.cat === 'SOCIAL') {
+                activeContentType = (currentProject.content?.POST?.length > 0) ? 'POST' : 'STORY';
+            }
+
+            currentImageIndex = 0;
+            renderModalContent();
+            
+            document.getElementById('project-modal').classList.remove('hidden');
+            document.getElementById('project-modal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+            document.getElementById('project-modal').classList.remove('flex');
+            document.body.style.overflow = 'auto';
+            // Stop videos
+            document.querySelectorAll('#modal-slider video').forEach(v => v.pause());
+            currentProject = null;
+        }
+
+        function nextImage() {
+            const arr = getCurrentMediaArray();
+            currentImageIndex = (currentImageIndex + 1) % arr.length;
+            updateModalSlider();
+        }
+
+        function prevImage() {
+            const arr = getCurrentMediaArray();
+            currentImageIndex = (currentImageIndex - 1 + arr.length) % arr.length;
+            updateModalSlider();
+        }
+
+        function setModalContentType(type) {
+            activeContentType = type;
+            currentImageIndex = 0;
+            renderModalContent(true);
+        }
+
+        function getCurrentMediaArray() {
+            if (!currentProject) return [];
+            let content = currentProject.content ? currentProject.content[activeContentType] : null;
+            if (Array.isArray(content) && content.length > 0) return content;
+            return [currentProject.img];
+        }
+
+        function renderModalContent(onlySliderUpdate = false) {
+            if (!currentProject) return;
+
+            const mediaArr = getCurrentMediaArray();
+            
+            // Aspect Ratio Class
+            let aspectClass = 'aspect-[4/5] max-w-xl';
+            if (currentProject.cat === 'PRINT') {
+                aspectClass = 'aspect-[4/5] max-w-xl';
+            } else {
+                if (activeContentType === 'STORY' || activeContentType === 'REELS' || activeContentType === 'MOTION') aspectClass = 'aspect-[9/16] max-w-sm';
+                else if (activeContentType === 'VIDEO') aspectClass = 'aspect-video w-full';
+            }
+
+            const mediaContainer = document.getElementById('modal-media-container');
+            mediaContainer.className = `relative w-full ${aspectClass} rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] ring-1 ring-[var(--border-color)] mx-auto`;
+
+            // Render Slider
+            const slider = document.getElementById('modal-slider');
+            slider.innerHTML = mediaArr.map(src => {
+                const videoOverlay = (!isVideo(src) && (currentProject.cat === 'MOTION' || activeContentType === 'REELS' || activeContentType === 'VIDEO')) 
+                    ? `<div class="absolute inset-0 flex items-center justify-center bg-white/30 pointer-events-none"><div class="w-20 h-20 rounded-full bg-[var(--bg-main)]/80 backdrop-blur-xl border border-[var(--text-main)]/10 flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.1)]"><i data-lucide="play" fill="var(--text-main)" class="ml-2 w-6 h-6 text-[var(--text-main)] opacity-90"></i></div></div>` : '';
+                return `<div class="min-w-full h-full relative bg-[var(--bg-main)]">${safeMediaHTML(src, false, "w-full h-full object-cover")} ${videoOverlay}</div>`;
+            }).join('');
+            
+            updateModalSlider();
+
+            // Render Nav Controls
+            const navControls = document.getElementById('modal-nav-controls');
+            if (mediaArr.length > 1) {
+                let dots = mediaArr.map((_, i) => `<button onclick="currentImageIndex=${i}; updateModalSlider();" class="interactive-el w-2 h-2 rounded-full transition-all duration-500 ${i === currentImageIndex ? 'bg-[var(--accent)] w-6 shadow-[0_0_10px_rgba(139,92,246,0.3)]' : 'bg-[var(--text-main)]/30 hover:bg-[var(--accent)]/60'}"></button>`).join('');
+                navControls.innerHTML = `
+                    <button onclick="prevImage()" class="interactive-el absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--bg-main)]/50 backdrop-blur-xl border border-[var(--text-main)]/10 hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]/30 hover:text-[var(--accent)] text-[var(--text-main)] transition-all duration-500 z-20 group">
+                        <i data-lucide="chevron-left" class="w-5 h-5 opacity-70 group-hover:opacity-100 group-hover:-translate-x-1 transition-all"></i>
+                    </button>
+                    <button onclick="nextImage()" class="interactive-el absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--bg-main)]/50 backdrop-blur-xl border border-[var(--text-main)]/10 hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]/30 hover:text-[var(--accent)] text-[var(--text-main)] transition-all duration-500 z-20 group">
+                        <i data-lucide="chevron-right" class="w-5 h-5 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                    </button>
+                    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 p-2 rounded-full bg-[var(--bg-main)]/50 backdrop-blur-xl border border-[var(--text-main)]/10 z-20" id="modal-dots">${dots}</div>
+                `;
+            } else {
+                navControls.innerHTML = '';
+            }
+
+            if (onlySliderUpdate) {
+                 lucide.createIcons();
+                 return;
+            }
+
+            // Update Text Details
+            document.getElementById('modal-cat').innerText = currentProject.cat;
+            document.getElementById('modal-title').innerText = currentProject.title;
+            document.getElementById('modal-client').innerText = currentProject.client || "Gizli";
+            document.getElementById('modal-year').innerText = currentProject.year || "2024";
+            document.getElementById('modal-service').innerText = currentProject.service || "Design";
+            document.getElementById('modal-desc').innerText = currentProject.description || "";
+
+            // Content Types Buttons
+            let contentTypes = [];
+            if (currentProject.cat === 'SOCIAL' || currentProject.cat === 'MOTION' || (currentProject.cat === 'AI' && currentProject.subCat === 'AI_POST')) {
+                if (currentProject.content?.POST && currentProject.content.POST.length > 0) contentTypes.push({ id: 'POST', label: 'POST', icon: 'layout' });
+                if (currentProject.content?.STORY && currentProject.content.STORY.length > 0) {
+                    let labelText = currentProject.cat === 'MOTION' ? 'REELS' : 'HİKAYE';
+                    let iconName = currentProject.cat === 'MOTION' ? 'film' : 'image';
+                    contentTypes.push({ id: 'STORY', label: labelText, icon: iconName });
+                }
+            }
+
+            const ctContainer = document.getElementById('modal-content-types-container');
+            const ctBtns = document.getElementById('modal-content-types');
+            
+            if (contentTypes.length > 1) {
+                ctContainer.classList.remove('hidden');
+                ctBtns.className = `grid gap-3 ${contentTypes.length >= 3 ? 'grid-cols-3' : 'grid-cols-2'}`;
+                ctBtns.innerHTML = contentTypes.map(t => `
+                    <button onclick="setModalContentType('${t.id}')" class="interactive-el flex flex-col items-center justify-center gap-2 py-4 rounded-2xl border font-light tracking-[0.1em] uppercase text-xs transition-all duration-500 ${activeContentType === t.id ? 'border-[var(--accent)]/30 bg-[var(--accent)]/10 text-[var(--accent)] shadow-[0_0_20px_rgba(139,92,246,0.1)]' : 'border-[var(--text-main)]/10 text-[var(--text-main)]/60 hover:border-[var(--accent)]/30 hover:text-[var(--accent)] hover:bg-[var(--accent)]/5'}">
+                        <i data-lucide="${t.icon}" class="w-4 h-4"></i> ${t.label}
+                    </button>
+                `).join('');
+            } else if (contentTypes.length === 1) {
+                ctContainer.classList.remove('hidden');
+                ctBtns.className = "";
+                ctBtns.innerHTML = `
+                    <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-[var(--border-color)] bg-[var(--bg-main)]/50 text-[var(--text-main)]/80 font-light tracking-[0.2em] uppercase text-xs">
+                        <i data-lucide="${contentTypes[0].icon}" class="w-3.5 h-3.5"></i> ${contentTypes[0].label}
+                    </div>
+                `;
+            } else {
+                ctContainer.classList.add('hidden');
+            }
+
+            lucide.createIcons();
+            attachCursorHover();
+        }
+
+        function updateModalSlider() {
+            const slider = document.getElementById('modal-slider');
+            if(slider) {
+                slider.style.transform = `translateX(-${currentImageIndex * 100}%)`;
+            }
+            
+            // Update dots
+            const dotsContainer = document.getElementById('modal-dots');
+            if (dotsContainer) {
+                const arr = getCurrentMediaArray();
+                dotsContainer.innerHTML = arr.map((_, i) => `<button onclick="currentImageIndex=${i}; updateModalSlider();" class="interactive-el w-2 h-2 rounded-full transition-all duration-500 ${i === currentImageIndex ? 'bg-[var(--accent)] w-6 shadow-[0_0_10px_rgba(139,92,246,0.3)]' : 'bg-[var(--text-main)]/30 hover:bg-[var(--accent)]/60'}"></button>`).join('');
+            }
+
+            // Handle video play states: pause all, play current if it's a video
+            document.querySelectorAll('#modal-slider video').forEach(v => v.pause());
+            const currentSlide = document.querySelector(`#modal-slider > div:nth-child(${currentImageIndex + 1}) video`);
+            if (currentSlide) {
+                currentSlide.play().catch(e => console.log(e));
+            }
+        }
+    </script>
+</body>
+</html>

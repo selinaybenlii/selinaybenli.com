@@ -1793,7 +1793,9 @@
                 return `
                 <div onclick="openModal('${work.id}')" class="project-card cursor-pointer group flex flex-col reveal ${index % 2 === 1 && filteredProjects.length > 2 ? 'md:mt-12 lg:mt-16' : ''}">
                     <div class="img-wrapper w-full ${aspectClass} bg-white/5 border border-white/10 mb-3 sm:mb-4 shadow-sm">
-                        ${safeMediaHTML(work.img, ['thumbnails', 'aiVisual'].includes(work.viewMode) ? "w-full h-full object-contain" : "w-full h-full object-cover object-top")}
+                        ${work.viewMode === 'video' && work.content?.VIDEO?.[0]
+                            ? `<video class="video-card-preview w-full h-full object-cover object-top" style="filter:blur(3px); pointer-events:none" src="${encodeURI(work.content.VIDEO[0])}" muted playsinline preload="metadata" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>`
+                            : safeMediaHTML(work.img, ['thumbnails', 'aiVisual'].includes(work.viewMode) ? "w-full h-full object-contain" : "w-full h-full object-cover object-top")}
                         <div class="project-overlay hidden md:flex">
                             <span class="overlay-btn font-mono text-xs uppercase tracking-widest">${hoverText}</span>
                         </div>
@@ -1812,6 +1814,15 @@
                     <p class="text-white/60 text-sm sm:text-base">${currentLang === 'tr' ? 'Çalışmalar yakında burada.' : 'Projects coming soon.'}</p>
                 </div>`;
             }
+            galleryContent.querySelectorAll('.video-card-preview').forEach(video => {
+                // Decode a still near one second without playing audio or the video.
+                video.muted = true;
+                video.addEventListener('loadedmetadata', () => {
+                    const time = Number.isFinite(video.duration) ? Math.min(1, Math.max(0, video.duration - 0.05)) : 1;
+                    video.currentTime = time;
+                }, { once: true });
+                video.addEventListener('seeked', () => video.pause(), { once: true });
+            });
             attachCursorHover();
             initReveal();
         }
@@ -2159,22 +2170,21 @@
                 frontCtx.stroke();
 
                 // OPTIMIZED PHOTO FRAME & BALANCED SPACING
-                const photoMaxW = 600;
+                const photoMaxW = 760;
                 const photoMaxH = 650;
                 const photoY = 195;
 
                 if (profileImg.complete && profileImg.naturalWidth !== 0) {
-                    const imgRatio = profileImg.naturalWidth / profileImg.naturalHeight;
-                    let drawW = photoMaxW;
-                    let drawH = drawW / imgRatio;
-                    if (drawH > photoMaxH) {
-                        drawH = photoMaxH;
-                        drawW = drawH * imgRatio;
-                    }
+                    // Keep the complete source width and the top; crop only below the photo area.
+                    const drawW = photoMaxW;
+                    const drawH = drawW * profileImg.naturalHeight / profileImg.naturalWidth;
                     const drawX = (w - drawW) / 2;
-                    const drawY = photoY + (photoMaxH - drawH) / 2;
-
-                    frontCtx.drawImage(profileImg, drawX, drawY, drawW, drawH);
+                    frontCtx.save();
+                    frontCtx.beginPath();
+                    frontCtx.rect(0, photoY, w, photoMaxH);
+                    frontCtx.clip();
+                    frontCtx.drawImage(profileImg, drawX, photoY, drawW, drawH);
+                    frontCtx.restore();
                 } else {
                     // Fallback placeholder
                     frontCtx.save();

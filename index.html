@@ -596,7 +596,7 @@
                 <div class="featured-grid grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 reveal">
                     <div onclick="goToWorks(event, 'SOCIAL')" class="group cursor-pointer">
                         <div class="featured-image w-full aspect-[4/5] rounded-2xl md:rounded-3xl overflow-hidden mb-3 sm:mb-5 relative border border-black/10 shadow-sm">
-                            <img draggable="false" data-original-src="/public/sosyalmedya/cesnili/post/post1.jpg" src="assets/missing.svg" alt="Çeşnili Döner" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.onerror=null;this.src='assets/missing.svg'">
+                            <img draggable="false" data-original-src="sosyalmedya/cesnili/post/ceslinipost1.jpg" src="sosyalmedya/cesnili/post/ceslinipost1.jpg" alt="Çeşnili Döner" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.onerror=null;this.src='assets/missing.svg'">
                             <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center hidden md:flex">
                                 <span class="bg-white/90 backdrop-blur-md text-black px-6 py-3 rounded-full font-semibold text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" data-i18n="prev-hover1">Portfolyoda İncele</span>
                             </div>
@@ -611,7 +611,7 @@
 
                     <div onclick="goToWorks(event, 'PRINT')" class="group cursor-pointer">
                         <div class="featured-image w-full aspect-[4/5] rounded-2xl md:rounded-3xl overflow-hidden mb-3 sm:mb-5 relative border border-black/10 shadow-sm">
-                            <img draggable="false" data-original-src="public-baskireklam-bayindir-kurumsalkimlik-1.jpg" src="assets/missing.svg" alt="Bayındır Et Kebap" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?w=800&q=80'">
+                            <img draggable="false" data-original-src="baskireklam/bayindir/kurumsalkimlik/1.jpg" src="baskireklam/bayindir/kurumsalkimlik/1.jpg" alt="Bayındır Et Kebap" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?w=800&q=80'">
                             <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center hidden md:flex">
                                 <span class="bg-white/90 backdrop-blur-md text-black px-6 py-3 rounded-full font-semibold text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" data-i18n="prev-hover2">Portfolyoda İncele</span>
                             </div>
@@ -949,8 +949,7 @@
 
     <script>
         // --- 1. DİL (i18n) SİSTEMİ ---
-        function availableMedia(src) { return src && mediaFiles.has(src) ? src : "assets/missing.svg"; }
-        const mediaFiles = new Set(["public-kurumsalkimlik-jnkmedya-sunum.jpg", "public-dijitaltasarim-samet-kapak1.jpg", "public-dijitaltasarim-samet-kapak2.jpg", "public-dijitaltasarim-samet-kapak3.jpg", "public-dijitaltasarim-samet-kapak4.jpg", "public-dijitaltasarim-samet-kapak5.jpg", "public-dijitaltasarim-samet-kapak6.jpg", "public-dijitaltasarim-samet-kapak7.jpg", "public-dijitaltasarim-samet-kapak8.jpg", "public-dijitaltasarim-samet-kapak9.jpg", "public-dijitaltasarim-samet-kapak10.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post1.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post2.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post3.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post4.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post5.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post6.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post7.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post8.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post9.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post10.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye1.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye2.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye3.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye4.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye5.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye6.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye7.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye8.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye9.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye10.jpg"]);
+        function availableMedia(src) { return src || "assets/missing.svg"; }
         let currentLang = 'tr';
         try { currentLang = localStorage.getItem('lang') === 'en' ? 'en' : 'tr'; } catch (_) {}
         
@@ -1202,352 +1201,534 @@
 
         // --- 3. PROJE VERİLERİ (PROJECTS DATA) ---
         const projectsData = [
-            {"id": "osmangazi-ai-video", "cat": "AI", "subcategory": "AI_VIDEO", "title": "Osmangazi Göz — Yapay Zekâ Destekli Reels Videosu", "client": "Osmangazi Göz", "year": null, "service_tr": "Yapay Zekâ Destekli Tanıtım Videosu", "service_en": "AI-Assisted Promotional Video", "description_tr": "Osmangazi Göz için hazırladığım, markanın iletişim diline uygun yapay zekâ destekli dikey Reels tanıtım videosu.", "description_en": "An AI-assisted vertical Reels promotional video created for Osmangazi Göz, aligned with the brand’s communication style.", "img": null, "viewMode": "video", "mediaDimensions": {"VIDEO": {"width": 1080, "height": 1920}}, "content": {"VIDEO": ["public-yapayzeka-video-osmangazigöz-video.mp4"]}},
-            {"id": "elit-ai-visual", "cat": "AI", "subcategory": "AI_SOCIAL", "title": "Elit Pastanesi - Yapay Zekâ Destekli Post ve Hikâye Tasarımları", "client": "Elit Pastanesi", "year": null, "service_tr": "Yapay Zekâ Destekli Ürün Görselleştirme ve Sosyal Medya Tasarımı", "service_en": "AI-Assisted Product Visualisation and Social Media Design", "description_tr": "Elit Pastanesi’nin Instagram hesabı için, ürünlerin özgün görünümünü ve detaylarını koruyarak profesyonel ürün fotoğrafçılığı estetiğiyle hazırladığım yapay zekâ destekli post ve hikâye tasarımları.", "description_en": "AI-assisted post and story designs for Elit Pastanesi’s Instagram account, preserving the products’ original appearance and details while adopting the aesthetics of professional product photography.", "img": "public-yapayzeka-görsel-elitpastanesi-post-post1.jpg", "viewMode": "aiVisual", "mediaDimensions": {"POST": {"width": 1080, "height": 1350}, "STORY": {"width": 1080, "height": 1920}}, "tabs": [{"id": "POST", "label": {"tr": "Post", "en": "Post"}}, {"id": "STORY", "label": {"tr": "Hikâye", "en": "Story"}}], "content": {"POST": ["public-yapayzeka-görsel-elitpastanesi-post-post1.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post2.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post3.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post4.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post5.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post6.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post7.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post8.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post9.jpg", "public-yapayzeka-görsel-elitpastanesi-post-post10.jpg"], "STORY": ["public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye1.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye2.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye3.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye4.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye5.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye6.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye7.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye8.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye9.jpg", "public-yapayzeka-görsel-elitpastanesi-hikaye-hikaye10.jpg"]}},
-            {"id": "samet-youtube", "cat": "DIGITAL", "title": "Samet Jankovic — YouTube Kapak Tasarımları", "client": "SAMET JANKOVIC", "year": null, "service_tr": "YouTube Video Kapak Tasarımı", "service_en": "YouTube Thumbnail Design", "description_tr": "Samet Jankovic’in kişisel YouTube kanalı için, videoların içeriğini güçlü bir görsel dille yansıtan ve kanalın görsel tutarlılığını destekleyen kapak tasarımları.", "description_en": "Thumbnail designs for Samet Jankovic’s personal YouTube channel, communicating each video’s content through a strong visual language while maintaining a consistent channel identity.", "img": "public-dijitaltasarim-samet-kapak1.jpg", "viewMode": "thumbnails", "content": {"THUMBNAILS": ["public-dijitaltasarim-samet-kapak1.jpg", "public-dijitaltasarim-samet-kapak2.jpg", "public-dijitaltasarim-samet-kapak3.jpg", "public-dijitaltasarim-samet-kapak4.jpg", "public-dijitaltasarim-samet-kapak5.jpg", "public-dijitaltasarim-samet-kapak6.jpg", "public-dijitaltasarim-samet-kapak7.jpg", "public-dijitaltasarim-samet-kapak8.jpg", "public-dijitaltasarim-samet-kapak9.jpg", "public-dijitaltasarim-samet-kapak10.jpg"]}},
-            {"id": "jnk-identity", "cat": "CORPORATE", "title": "JNK Medya — Logo ve Kurumsal Kimlik", "client": "SAMET JANKOVIC", "year": null, "service_tr": "Logo ve Kurumsal Kimlik Tasarımı", "service_en": "Logo and Corporate Identity Design", "description_tr": "Samet Jankovic’in kurduğu dijital medya ajansı için, markanın karakterini ve iletişim vizyonunu yansıtan logo ve kurumsal kimlik tasarımı.", "description_en": "Logo and corporate identity design reflecting the character and communication vision of the digital media agency founded by Samet Jankovic.", "img": "public-kurumsalkimlik-jnkmedya-sunum.jpg", "viewMode": "presentation", "presentationSize": {"widthMm": 297, "heightMm": 1260}, "content": {"PRESENTATION": ["public-kurumsalkimlik-jnkmedya-sunum.jpg"]}},
-            // SOSYAL MEDYA
-            { 
-                id: '1', 
-                cat: 'SOCIAL', 
-                title: 'Çeşnili Döner Acıbadem Post ve Hikaye Çalışmaları', 
-                client: 'Çeşnili Döner Acıbadem', 
-                year: '2025-2026', 
-                service_tr: 'Sosyal Medya Yönetimi', 
-                service_en: 'Social Media Management', 
-                description_tr: 'Çeşnili Döner için hazırladığım marka algısını güçlendiren, modern ve tutarlı post ve hikâye tasarımları.', 
-                description_en: 'Modern and consistent post and story designs I created for Çeşnili Döner that strengthen brand perception.', 
-                img: '/public/sosyalmedya/cesnili/post/post1.jpg', 
-                content: { 
-                    POST: [
-                        '/public/sosyalmedya/cesnili/post/post1.jpg',
-                        '/public/sosyalmedya/cesnili/post/post2.jpg',
-                        '/public/sosyalmedya/cesnili/post/post3.jpg',
-                        '/public/sosyalmedya/cesnili/post/post4.jpg',
-                        '/public/sosyalmedya/cesnili/post/post5.jpg',
-                        '/public/sosyalmedya/cesnili/post/post6.jpg',
-                        '/public/sosyalmedya/cesnili/post/post7.jpg',
-                        '/public/sosyalmedya/cesnili/post/post8.jpg',
-                        '/public/sosyalmedya/cesnili/post/post9.jpg',
-                        '/public/sosyalmedya/cesnili/post/post10.jpg'
-                    ], 
-                    STORY: [
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye1.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye2.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye3.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye4.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye5.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye6.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye7.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye8.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye9.jpg',
-                        '/public/sosyalmedya/cesnili/hikaye/hikaye10.jpg'
-                    ] 
-                } 
+    {
+        "id": "osmangazi-ai-video",
+        "cat": "AI",
+        "subcategory": "AI_VIDEO",
+        "title": "Osmangazi Göz — Yapay Zekâ Destekli Reels Videosu",
+        "client": "Osmangazi Göz",
+        "year": null,
+        "service_tr": "Yapay Zekâ Destekli Tanıtım Videosu",
+        "service_en": "AI-Assisted Promotional Video",
+        "description_tr": "Osmangazi Göz için hazırladığım, markanın iletişim diline uygun yapay zekâ destekli dikey Reels tanıtım videosu.",
+        "description_en": "An AI-assisted vertical Reels promotional video created for Osmangazi Göz, aligned with the brand’s communication style.",
+        "img": null,
+        "viewMode": "video",
+        "mediaDimensions": {
+            "VIDEO": {
+                "width": 1080,
+                "height": 1920
+            }
+        },
+        "content": {
+            "VIDEO": [
+                "yapayzeka/video/osmangazigöz/video.mp4"
+            ]
+        }
+    },
+    {
+        "id": "elit-ai-visual",
+        "cat": "AI",
+        "subcategory": "AI_SOCIAL",
+        "title": "Elit Pastanesi - Yapay Zekâ Destekli Post ve Hikâye Tasarımları",
+        "client": "Elit Pastanesi",
+        "year": null,
+        "service_tr": "Yapay Zekâ Destekli Ürün Görselleştirme ve Sosyal Medya Tasarımı",
+        "service_en": "AI-Assisted Product Visualisation and Social Media Design",
+        "description_tr": "Elit Pastanesi’nin Instagram hesabı için, ürünlerin özgün görünümünü ve detaylarını koruyarak profesyonel ürün fotoğrafçılığı estetiğiyle hazırladığım yapay zekâ destekli post ve hikâye tasarımları.",
+        "description_en": "AI-assisted post and story designs for Elit Pastanesi’s Instagram account, preserving the products’ original appearance and details while adopting the aesthetics of professional product photography.",
+        "img": "yapayzeka/görsel/elitpastanesi/post/post1.jpg",
+        "viewMode": "aiVisual",
+        "mediaDimensions": {
+            "POST": {
+                "width": 1080,
+                "height": 1350
             },
-            { 
-                id: '2', 
-                cat: 'SOCIAL', 
-                title: 'Alpergo Post ve Hikaye Çalışmaları', 
-                client: 'Alpergo', 
-                year: '2026', 
-                service_tr: 'Sosyal Medya Yönetimi', 
-                service_en: 'Social Media Management', 
-                description_tr: 'Alpergo için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.', 
-                description_en: 'Modern and consistent social media designs I created for Alpergo that strengthen brand perception.', 
-                img: '/public/sosyalmedya/alpergo/post/post1.jpg', 
-                content: { 
-                    POST: [
-                        '/public/sosyalmedya/alpergo/post/post1.jpg',
-                        '/public/sosyalmedya/alpergo/post/post2.jpg',
-                        '/public/sosyalmedya/alpergo/post/post3.jpg',
-                        '/public/sosyalmedya/alpergo/post/post4.jpg',
-                        '/public/sosyalmedya/alpergo/post/post5.jpg',
-                        '/public/sosyalmedya/alpergo/post/post6.jpg',
-                        '/public/sosyalmedya/alpergo/post/post7.jpg',
-                        '/public/sosyalmedya/alpergo/post/post8.jpg',
-                        '/public/sosyalmedya/alpergo/post/post9.jpg',
-                        '/public/sosyalmedya/alpergo/post/post10.jpg'
-                    ], 
-                    STORY: [
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye1.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye2.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye3.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye4.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye5.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye6.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye7.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye8.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye9.jpg',
-                        '/public/sosyalmedya/alpergo/hikaye/hikaye10.jpg'
-                    ] 
-                } 
-            },
-            { 
-                id: '3', 
-                cat: 'SOCIAL', 
-                title: 'Koca İnovasyon Post ve Hikaye Çalışmaları', 
-                client: 'Koca İnovasyon Merkez', 
-                year: '2026', 
-                service_tr: 'Sosyal Medya Yönetimi', 
-                service_en: 'Social Media Management', 
-                description_tr: 'Koca İnovasyon merkez şubesi için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.', 
-                description_en: 'Modern and consistent social media designs I created for the Koca İnovasyon central branch that strengthen brand perception.', 
-                img: '/public/sosyalmedya/kocainovasyon/post/post1.jpg', 
-                content: { 
-                    POST: [
-                        '/public/sosyalmedya/kocainovasyon/post/post1.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post2.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post3.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post4.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post5.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post6.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post7.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post8.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post9.jpg',
-                        '/public/sosyalmedya/kocainovasyon/post/post10.jpg'
-                    ], 
-                    STORY: [
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye1.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye2.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye3.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye4.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye5.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye6.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye7.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye8.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye9.jpg',
-                        '/public/sosyalmedya/kocainovasyon/hikaye/hikaye10.jpg'
-                    ] 
-                } 
-            },
-            { 
-                id: '4', 
-                cat: 'SOCIAL', 
-                title: 'Özdemir Time Post ve Hikaye Çalışmaları', 
-                client: 'Özdemir Beton İnşaat', 
-                year: '2026', 
-                service_tr: 'Sosyal Medya Yönetimi', 
-                service_en: 'Social Media Management', 
-                description_tr: 'Özdemir Time için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.', 
-                description_en: 'Modern and consistent social media designs I created for Özdemir Time that strengthen brand perception.', 
-                img: '/public/sosyalmedya/özdemirtime/post/post1.jpg', 
-                content: { 
-                    POST: [
-                        '/public/sosyalmedya/özdemirtime/post/post1.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post2.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post3.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post4.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post5.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post6.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post7.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post8.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post9.jpg',
-                        '/public/sosyalmedya/özdemirtime/post/post10.jpg'
-                    ], 
-                    STORY: [
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye1.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye2.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye3.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye4.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye5.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye6.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye7.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye8.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye9.jpg',
-                        '/public/sosyalmedya/özdemirtime/hikaye/hikaye10.jpg'
-                    ] 
-                } 
-            },
-            { 
-                id: '5', 
-                cat: 'SOCIAL', 
-                title: 'Sultanahmet Köftecisi Sirkeci şubesi Post ve Hikaye Çalışmaları', 
-                client: 'Sultanahmet Köftecisi Sirkeci', 
-                year: '2026', 
-                service_tr: 'Sosyal Medya Yönetimi', 
-                service_en: 'Social Media Management', 
-                description_tr: 'Sultanahmet Köftecisi Sirkeci şubesi için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.', 
-                description_en: 'Modern and consistent social media designs I created for the Sultanahmet Köftecisi Sirkeci branch that strengthen brand perception.', 
-                img: '/public/sosyalmedya/sultanahmetköftecisi/post/post1.jpg', 
-                content: { 
-                    POST: [
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post1.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post2.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post3.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post4.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post5.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post6.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post7.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post8.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post9.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/post/post10.jpg'
-                    ], 
-                    STORY: [
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye1.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye2.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye3.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye4.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye5.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye6.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye7.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye8.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye9.jpg',
-                        '/public/sosyalmedya/sultanahmetköftecisi/hikaye/hikaye10.jpg'
-                    ] 
-                } 
-            },
-            { 
-                id: '6', 
-                cat: 'SOCIAL', 
-                title: 'Dönerci Ali Usta Post ve Hikaye Çalışmaları', 
-                client: 'Dönerci Ali Usta', 
-                year: '2025-2026', 
-                service_tr: 'Sosyal Medya Yönetimi', 
-                service_en: 'Social Media Management', 
-                description_tr: 'Dönerci Ali Usta için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.', 
-                description_en: 'Modern and consistent social media designs I created for Dönerci Ali Usta that strengthen brand perception.', 
-                img: '/public/sosyalmedya/dönercialiusta/post/post1.jpg', 
-                content: { 
-                    POST: [
-                        '/public/sosyalmedya/dönercialiusta/post/post1.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post2.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post3.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post4.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post5.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post6.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post7.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post8.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post9.jpg',
-                        '/public/sosyalmedya/dönercialiusta/post/post10.jpg'
-                    ], 
-                    STORY: [
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye1.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye2.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye3.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye4.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye5.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye6.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye7.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye8.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye9.jpg',
-                        '/public/sosyalmedya/dönercialiusta/hikaye/hikaye10.jpg'
-                    ] 
-                } 
-            },
-
-            // BASKI & REKLAM
+            "STORY": {
+                "width": 1080,
+                "height": 1920
+            }
+        },
+        "tabs": [
             {
-                id: 'pr1',
-                cat: 'PRINT',
-                title: 'Bayındır Et Kebap Kurumsal Kimlik ve Menü Tasarımları',
-                client: 'Bayındır Et Kebap',
-                year: '2025–2026',
-                service_tr: 'Kurumsal Kimlik & Baskı',
-                service_en: 'Branding & Print',
-                description_tr: 'Bayındır Et Kebap için hazırladığım kurumsal kimlik ve menü tasarımları.',
-                description_en: 'Corporate identity and menu designs created for Bayındır Et Kebap.',
-                img: 'public-baskireklam-bayindir-kurumsalkimlik-1.jpg',
-                tabs: [
-                    { id: 'KIMLIK', label: { tr: 'Kurumsal Kimlik', en: 'Brand Identity' } },
-                    { id: 'MENU', label: { tr: 'Menü', en: 'Menu' } }
-                ],
-                content: {
-                    KIMLIK: [
-                        'public-baskireklam-bayindir-kurumsalkimlik-1.jpg',
-                        'public-baskireklam-bayindir-kurumsalkimlik-2.jpg',
-                        'public-baskireklam-bayindir-kurumsalkimlik-3.jpg'
-                    ],
-                    MENU: [
-                        'public-baskireklam-bayindir-menu-1.jpg'
-                    ]
+                "id": "POST",
+                "label": {
+                    "tr": "Post",
+                    "en": "Post"
                 }
             },
             {
-                id: 'pr2',
-                cat: 'PRINT',
-                title: 'Çeşnili Döner Acıbadem Branda ve Menü Tasarımları',
-                client: 'Çeşnili Döner Acıbadem',
-                year: '2025–2026',
-                service_tr: 'Baskı Uygulamaları',
-                service_en: 'Print Applications',
-                description_tr: 'Çeşnili Döner Acıbadem için hazırladığım branda ve menü tasarımları.',
-                description_en: 'Banner and menu designs created for Çeşnili Döner Acıbadem.',
-                img: 'public-baskireklam-cesnili-branda-1.jpg',
-                tabs: [
-                    { id: 'BRANDA', label: { tr: 'Branda', en: 'Banner' } },
-                    { id: 'MENU', label: { tr: 'Menü', en: 'Menu' } }
-                ],
-                content: {
-                    BRANDA: [
-                        'public-baskireklam-cesnili-branda-1.jpg',
-                        'public-baskireklam-cesnili-branda-2.jpg',
-                        'public-baskireklam-cesnili-branda-3.jpg',
-                        'public-baskireklam-cesnili-branda-4.jpg'
-                    ],
-                    MENU: [
-                        'public-baskireklam-cesnili-menu-1.jpg',
-                        'public-baskireklam-cesnili-menu-2.jpg',
-                        'public-baskireklam-cesnili-menu-3.jpg',
-                        'public-baskireklam-cesnili-menu-4.jpg',
-                        'public-baskireklam-cesnili-menu-5.jpg'
-                    ]
-                }
-            },
-            {
-                id: 'pr3',
-                cat: 'PRINT',
-                title: 'Dönerci Ali Usta Branda ve Broşür Tasarımları',
-                client: 'Dönerci Ali Usta',
-                year: '2025–2026',
-                service_tr: 'Baskı Uygulamaları',
-                service_en: 'Print Applications',
-                description_tr: 'Dönerci Ali Usta için hazırladığım branda ve broşür tasarımları.',
-                description_en: 'Banner and brochure designs created for Dönerci Ali Usta.',
-                img: 'public-baskireklam-dönercialiusta-branda-1.jpg',
-                tabs: [
-                    { id: 'BRANDA', label: { tr: 'Branda', en: 'Banner' } },
-                    { id: 'BROSUR', label: { tr: 'Broşür', en: 'Brochure' } }
-                ],
-                content: {
-                    BRANDA: [
-                        'public-baskireklam-dönercialiusta-branda-1.jpg',
-                        'public-baskireklam-dönercialiusta-branda-2.jpg',
-                        'public-baskireklam-dönercialiusta-branda-3.jpg',
-                        'public-baskireklam-dönercialiusta-branda-4.jpg'
-                    ],
-                    BROSUR: [
-                        'public-baskireklam-dönercialiusta-brosur-1.jpg',
-                        'public-baskireklam-dönercialiusta-brosur-2.jpg'
-                    ]
-                }
-            },
-            {
-                id: 'pr4',
-                cat: 'PRINT',
-                title: 'Tuzdan Balık Branda ve Menü Tasarımları',
-                client: 'TuzdanBalık',
-                year: '2025–2026',
-                service_tr: 'Baskı Uygulamaları',
-                service_en: 'Print Applications',
-                description_tr: 'Tuzdan Balık için hazırladığım branda ve menü tasarımları.',
-                description_en: 'Banner and menu designs created for Tuzdan Balık.',
-                img: 'public-baskireklam-tuzdanbalik-branda-1.jpg',
-                tabs: [
-                    { id: 'BRANDA', label: { tr: 'Branda', en: 'Banner' } },
-                    { id: 'MENU', label: { tr: 'Menü', en: 'Menu' } }
-                ],
-                content: {
-                    BRANDA: [
-                        'public-baskireklam-tuzdanbalik-branda-1.jpg',
-                        'public-baskireklam-tuzdanbalik-branda-2.jpg'
-                    ],
-                    MENU: [
-                        'public-baskireklam-tuzdanbalik-brosur-1.jpg'
-                    ]
+                "id": "STORY",
+                "label": {
+                    "tr": "Hikâye",
+                    "en": "Story"
                 }
             }
-        ];
+        ],
+        "content": {
+            "POST": [
+                "yapayzeka/görsel/elitpastanesi/post/post1.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post2.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post3.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post4.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post5.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post6.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post7.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post8.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post9.jpg",
+                "yapayzeka/görsel/elitpastanesi/post/post10.jpg"
+            ],
+            "STORY": [
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye1.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye2.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye3.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye4.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye5.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye6.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye7.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye8.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye9.jpg",
+                "yapayzeka/görsel/elitpastanesi/hikaye/hikaye10.jpg"
+            ]
+        }
+    },
+    {
+        "id": "samet-youtube",
+        "cat": "DIGITAL",
+        "title": "Samet Jankovic — YouTube Kapak Tasarımları",
+        "client": "SAMET JANKOVIC",
+        "year": null,
+        "service_tr": "YouTube Video Kapak Tasarımı",
+        "service_en": "YouTube Thumbnail Design",
+        "description_tr": "Samet Jankovic’in kişisel YouTube kanalı için, videoların içeriğini güçlü bir görsel dille yansıtan ve kanalın görsel tutarlılığını destekleyen kapak tasarımları.",
+        "description_en": "Thumbnail designs for Samet Jankovic’s personal YouTube channel, communicating each video’s content through a strong visual language while maintaining a consistent channel identity.",
+        "img": "dijitaltasarim/samet/kapak1.jpg",
+        "viewMode": "thumbnails",
+        "content": {
+            "THUMBNAILS": [
+                "dijitaltasarim/samet/kapak1.jpg",
+                "dijitaltasarim/samet/kapak2.jpg",
+                "dijitaltasarim/samet/kapak3.jpg",
+                "dijitaltasarim/samet/kapak4.jpg",
+                "dijitaltasarim/samet/kapak5.jpg",
+                "dijitaltasarim/samet/kapak6.jpg",
+                "dijitaltasarim/samet/kapak7.jpg",
+                "dijitaltasarim/samet/kapak8.jpg",
+                "dijitaltasarim/samet/kapak9.jpg",
+                "dijitaltasarim/samet/kapak10.jpg"
+            ]
+        }
+    },
+    {
+        "id": "jnk-identity",
+        "cat": "CORPORATE",
+        "title": "JNK Medya — Logo ve Kurumsal Kimlik",
+        "client": "SAMET JANKOVIC",
+        "year": null,
+        "service_tr": "Logo ve Kurumsal Kimlik Tasarımı",
+        "service_en": "Logo and Corporate Identity Design",
+        "description_tr": "Samet Jankovic’in kurduğu dijital medya ajansı için, markanın karakterini ve iletişim vizyonunu yansıtan logo ve kurumsal kimlik tasarımı.",
+        "description_en": "Logo and corporate identity design reflecting the character and communication vision of the digital media agency founded by Samet Jankovic.",
+        "img": "kurumsalkimlik/jnkmedya/sunum.jpg",
+        "viewMode": "presentation",
+        "presentationSize": {
+            "widthMm": 297,
+            "heightMm": 1260
+        },
+        "content": {
+            "PRESENTATION": [
+                "kurumsalkimlik/jnkmedya/sunum.jpg"
+            ]
+        }
+    },
+    {
+        "id": "1",
+        "cat": "SOCIAL",
+        "title": "Çeşnili Döner Acıbadem Post ve Hikaye Çalışmaları",
+        "client": "Çeşnili Döner Acıbadem",
+        "year": "2025-2026",
+        "service_tr": "Sosyal Medya Yönetimi",
+        "service_en": "Social Media Management",
+        "description_tr": "Çeşnili Döner için hazırladığım marka algısını güçlendiren, modern ve tutarlı post ve hikâye tasarımları.",
+        "description_en": "Modern and consistent post and story designs I created for Çeşnili Döner that strengthen brand perception.",
+        "img": "sosyalmedya/cesnili/post/ceslinipost1.jpg",
+        "content": {
+            "POST": [
+                "sosyalmedya/cesnili/post/ceslinipost1.jpg",
+                "sosyalmedya/cesnili/post/ceslinipost2.jpg",
+                "sosyalmedya/cesnili/post/ceslinipost3.jpg",
+                "sosyalmedya/cesnili/post/ceslinipost5.jpg",
+                "sosyalmedya/cesnili/post/ceslinipost6.jpg",
+                "sosyalmedya/cesnili/post/ceslinipost7.jpg",
+                "sosyalmedya/cesnili/post/Çeşnili Acıbadem Post 43.jpg",
+                "sosyalmedya/cesnili/post/Çeşnili Acıbadem Post 45.jpg",
+                "sosyalmedya/cesnili/post/Çeşnili Acıbadem Post 56.jpg",
+                "sosyalmedya/cesnili/post/Çeşnili Acıbadem Post 70.jpg"
+            ],
+            "STORY": [
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 33.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 34.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 51.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 55.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 59.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 62.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 65.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 72.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 77.jpg",
+                "sosyalmedya/cesnili/hikaye/çeşnili acıbadem hikaye 78.jpg"
+            ]
+        }
+    },
+    {
+        "id": "2",
+        "cat": "SOCIAL",
+        "title": "Alpergo Post ve Hikaye Çalışmaları",
+        "client": "Alpergo",
+        "year": "2026",
+        "service_tr": "Sosyal Medya Yönetimi",
+        "service_en": "Social Media Management",
+        "description_tr": "Alpergo için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.",
+        "description_en": "Modern and consistent social media designs I created for Alpergo that strengthen brand perception.",
+        "img": "sosyalmedya/alpergo/post/1.jpg",
+        "content": {
+            "POST": [
+                "sosyalmedya/alpergo/post/1.jpg",
+                "sosyalmedya/alpergo/post/3.jpg",
+                "sosyalmedya/alpergo/post/16.jpg",
+                "sosyalmedya/alpergo/post/17.jpg",
+                "sosyalmedya/alpergo/post/21.jpg",
+                "sosyalmedya/alpergo/post/22.jpg",
+                "sosyalmedya/alpergo/post/24.jpg",
+                "sosyalmedya/alpergo/post/27.jpg",
+                "sosyalmedya/alpergo/post/29.jpg",
+                "sosyalmedya/alpergo/post/32.jpg",
+                "sosyalmedya/alpergo/post/37.jpg"
+            ],
+            "STORY": [
+                "sosyalmedya/alpergo/hikaye/39.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 4.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 7.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 9.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 13.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 14.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 16.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 22.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 29.jpg",
+                "sosyalmedya/alpergo/hikaye/a hikaye 30.jpg"
+            ]
+        }
+    },
+    {
+        "id": "3",
+        "cat": "SOCIAL",
+        "title": "Koca İnovasyon Post ve Hikaye Çalışmaları",
+        "client": "Koca İnovasyon Merkez",
+        "year": "2026",
+        "service_tr": "Sosyal Medya Yönetimi",
+        "service_en": "Social Media Management",
+        "description_tr": "Koca İnovasyon merkez şubesi için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.",
+        "description_en": "Modern and consistent social media designs I created for the Koca İnovasyon central branch that strengthen brand perception.",
+        "img": "sosyalmedya/kocainovasyon/post/post 1.jpg",
+        "content": {
+            "POST": [
+                "sosyalmedya/kocainovasyon/post/post 1.jpg",
+                "sosyalmedya/kocainovasyon/post/post 17.jpg",
+                "sosyalmedya/kocainovasyon/post/post 18.jpg",
+                "sosyalmedya/kocainovasyon/post/post 26.jpg",
+                "sosyalmedya/kocainovasyon/post/post 27.jpg",
+                "sosyalmedya/kocainovasyon/post/post 28.jpg",
+                "sosyalmedya/kocainovasyon/post/post 29.jpg",
+                "sosyalmedya/kocainovasyon/post/post 30.jpg",
+                "sosyalmedya/kocainovasyon/post/post 31.jpg",
+                "sosyalmedya/kocainovasyon/post/WhatsApp Image 2026-05-04 at 15.09.34.jpeg"
+            ],
+            "STORY": [
+                "sosyalmedya/kocainovasyon/hikaye/015c0a4e-0713-468c-99ec-1de1a252fe99.JPG",
+                "sosyalmedya/kocainovasyon/hikaye/477a221a-8f6d-4ec6-a245-422630ca8980.JPG",
+                "sosyalmedya/kocainovasyon/hikaye/631ff35a-a306-43e8-8121-f4aa5b5de349.JPG",
+                "sosyalmedya/kocainovasyon/hikaye/b538dd4d-5cef-40b1-8b4e-7561f59edbda.JPG",
+                "sosyalmedya/kocainovasyon/hikaye/cd5c9d77-78e9-4ac4-ab3a-0227557129de.JPG",
+                "sosyalmedya/kocainovasyon/hikaye/ChatGPT Image 6 Eyl 2026 22_44_22.png",
+                "sosyalmedya/kocainovasyon/hikaye/ChatGPT Image 6 Eyl 2026 22_45_58.png",
+                "sosyalmedya/kocainovasyon/hikaye/ChatGPT Image 6 Eyl 2026 22_48_58.png",
+                "sosyalmedya/kocainovasyon/hikaye/ChatGPT Image 6 Eyl 2026 22_58_12.png",
+                "sosyalmedya/kocainovasyon/hikaye/dac90edd-d5a7-400c-a0f6-862b185ce6c0.JPG"
+            ]
+        }
+    },
+    {
+        "id": "4",
+        "cat": "SOCIAL",
+        "title": "Özdemir Time Post ve Hikaye Çalışmaları",
+        "client": "Özdemir Beton İnşaat",
+        "year": "2026",
+        "service_tr": "Sosyal Medya Yönetimi",
+        "service_en": "Social Media Management",
+        "description_tr": "Özdemir Time için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.",
+        "description_en": "Modern and consistent social media designs I created for Özdemir Time that strengthen brand perception.",
+        "img": "sosyalmedya/özdemirtime/post/Post 1.jpg",
+        "content": {
+            "POST": [
+                "sosyalmedya/özdemirtime/post/Post 1.jpg",
+                "sosyalmedya/özdemirtime/post/Post 2.jpg",
+                "sosyalmedya/özdemirtime/post/Post 3.jpg",
+                "sosyalmedya/özdemirtime/post/Post 5.jpg",
+                "sosyalmedya/özdemirtime/post/Post 6.jpg",
+                "sosyalmedya/özdemirtime/post/Post 7.jpg",
+                "sosyalmedya/özdemirtime/post/Post 13.jpg",
+                "sosyalmedya/özdemirtime/post/Post 15.jpg",
+                "sosyalmedya/özdemirtime/post/Seçkin mekanlar, huzurlu bir yaşam.Detaylı bilgiler için;📞 444 33 25☎️ 0 216 304 07 07📱 0 535 .jpg",
+                "sosyalmedya/özdemirtime/post/Seçkin YaşamKonforun Yeni Adresi ÖZDEMİR TİMEDetaylı bilgiler için;📞 444 33 25☎️ 0 216 304 07 0.jpg"
+            ],
+            "STORY": [
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 6.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 11.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 17.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 20.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 28.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 30.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 40.png",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 41.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 55.jpg",
+                "sosyalmedya/özdemirtime/hikaye/Hikaye 56.jpg"
+            ]
+        }
+    },
+    {
+        "id": "5",
+        "cat": "SOCIAL",
+        "title": "Sultanahmet Köftecisi Sirkeci şubesi Post ve Hikaye Çalışmaları",
+        "client": "Sultanahmet Köftecisi Sirkeci",
+        "year": "2026",
+        "service_tr": "Sosyal Medya Yönetimi",
+        "service_en": "Social Media Management",
+        "description_tr": "Sultanahmet Köftecisi Sirkeci şubesi için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.",
+        "description_en": "Modern and consistent social media designs I created for the Sultanahmet Köftecisi Sirkeci branch that strengthen brand perception.",
+        "img": "sosyalmedya/sultanahmet/post/post 1.jpg",
+        "content": {
+            "POST": [
+                "sosyalmedya/sultanahmet/post/post 1.jpg",
+                "sosyalmedya/sultanahmet/post/post 8.jpg",
+                "sosyalmedya/sultanahmet/post/post 9.jpg",
+                "sosyalmedya/sultanahmet/post/post 20.jpg",
+                "sosyalmedya/sultanahmet/post/post 23.jpg",
+                "sosyalmedya/sultanahmet/post/post 28.jpg",
+                "sosyalmedya/sultanahmet/post/post 29.jpg",
+                "sosyalmedya/sultanahmet/post/post 38.jpg",
+                "sosyalmedya/sultanahmet/post/post 44.jpg",
+                "sosyalmedya/sultanahmet/post/post 55.jpg"
+            ],
+            "STORY": [
+                "sosyalmedya/sultanahmet/hikaye/hikaye 27.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 38.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 39.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 40.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 44.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 45.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 47.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 51.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 60.jpg",
+                "sosyalmedya/sultanahmet/hikaye/hikaye 61.jpg"
+            ]
+        }
+    },
+    {
+        "id": "6",
+        "cat": "SOCIAL",
+        "title": "Dönerci Ali Usta Post ve Hikaye Çalışmaları",
+        "client": "Dönerci Ali Usta",
+        "year": "2025-2026",
+        "service_tr": "Sosyal Medya Yönetimi",
+        "service_en": "Social Media Management",
+        "description_tr": "Dönerci Ali Usta için hazırladığım marka algısını güçlendiren, modern ve tutarlı sosyal medya tasarımları.",
+        "description_en": "Modern and consistent social media designs I created for Dönerci Ali Usta that strengthen brand perception.",
+        "img": "sosyalmedya/dönercialiusta/post/post1.jpg",
+        "content": {
+            "POST": [
+                "sosyalmedya/dönercialiusta/post/post1.jpg",
+                "sosyalmedya/dönercialiusta/post/post2.jpg",
+                "sosyalmedya/dönercialiusta/post/post3.jpg",
+                "sosyalmedya/dönercialiusta/post/post4.jpg",
+                "sosyalmedya/dönercialiusta/post/post5.jpg",
+                "sosyalmedya/dönercialiusta/post/post6.jpg",
+                "sosyalmedya/dönercialiusta/post/post7.jpg",
+                "sosyalmedya/dönercialiusta/post/post8.jpg",
+                "sosyalmedya/dönercialiusta/post/post9.jpg",
+                "sosyalmedya/dönercialiusta/post/post10.jpg"
+            ],
+            "STORY": [
+                "sosyalmedya/dönercialiusta/hikaye/hikaye1.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye2.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye3.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye4.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye5.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye6.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye7.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye8.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye9.jpg",
+                "sosyalmedya/dönercialiusta/hikaye/hikaye10.jpg"
+            ]
+        }
+    },
+    {
+        "id": "pr1",
+        "cat": "PRINT",
+        "title": "Bayındır Et Kebap Kurumsal Kimlik ve Menü Tasarımları",
+        "client": "Bayındır Et Kebap",
+        "year": "2025–2026",
+        "service_tr": "Kurumsal Kimlik & Baskı",
+        "service_en": "Branding & Print",
+        "description_tr": "Bayındır Et Kebap için hazırladığım kurumsal kimlik ve menü tasarımları.",
+        "description_en": "Corporate identity and menu designs created for Bayındır Et Kebap.",
+        "img": "baskireklam/bayindir/kurumsalkimlik/1.jpg",
+        "tabs": [
+            {
+                "id": "KIMLIK",
+                "label": {
+                    "tr": "Kurumsal Kimlik",
+                    "en": "Brand Identity"
+                }
+            },
+            {
+                "id": "MENU",
+                "label": {
+                    "tr": "Menü",
+                    "en": "Menu"
+                }
+            }
+        ],
+        "content": {
+            "KIMLIK": [
+                "baskireklam/bayindir/kurumsalkimlik/1.jpg",
+                "baskireklam/bayindir/kurumsalkimlik/2.jpg",
+                "baskireklam/bayindir/kurumsalkimlik/3.jpg"
+            ],
+            "MENU": [
+                "baskireklam/bayindir/menu/4-2.jpg"
+            ]
+        }
+    },
+    {
+        "id": "pr2",
+        "cat": "PRINT",
+        "title": "Çeşnili Döner Acıbadem Branda ve Menü Tasarımları",
+        "client": "Çeşnili Döner Acıbadem",
+        "year": "2025–2026",
+        "service_tr": "Baskı Uygulamaları",
+        "service_en": "Print Applications",
+        "description_tr": "Çeşnili Döner Acıbadem için hazırladığım branda ve menü tasarımları.",
+        "description_en": "Banner and menu designs created for Çeşnili Döner Acıbadem.",
+        "img": "baskireklam/cesnili/branda/1.jpg",
+        "tabs": [
+            {
+                "id": "BRANDA",
+                "label": {
+                    "tr": "Branda",
+                    "en": "Banner"
+                }
+            },
+            {
+                "id": "MENU",
+                "label": {
+                    "tr": "Menü",
+                    "en": "Menu"
+                }
+            }
+        ],
+        "content": {
+            "BRANDA": [
+                "baskireklam/cesnili/branda/1.jpg",
+                "baskireklam/cesnili/branda/2.jpg",
+                "baskireklam/cesnili/branda/3.jpg",
+                "baskireklam/cesnili/branda/4.jpg"
+            ],
+            "MENU": [
+                "baskireklam/cesnili/menu/1.jpg",
+                "baskireklam/cesnili/menu/2.jpg",
+                "baskireklam/cesnili/menu/3.jpg",
+                "baskireklam/cesnili/menu/4.jpg",
+                "baskireklam/cesnili/menu/5.jpg"
+            ]
+        }
+    },
+    {
+        "id": "pr3",
+        "cat": "PRINT",
+        "title": "Dönerci Ali Usta Branda ve Broşür Tasarımları",
+        "client": "Dönerci Ali Usta",
+        "year": "2025–2026",
+        "service_tr": "Baskı Uygulamaları",
+        "service_en": "Print Applications",
+        "description_tr": "Dönerci Ali Usta için hazırladığım branda ve broşür tasarımları.",
+        "description_en": "Banner and brochure designs created for Dönerci Ali Usta.",
+        "img": "baskireklam/dönercialiusta/branda/1-2.jpg",
+        "tabs": [
+            {
+                "id": "BRANDA",
+                "label": {
+                    "tr": "Branda",
+                    "en": "Banner"
+                }
+            },
+            {
+                "id": "BROSUR",
+                "label": {
+                    "tr": "Broşür",
+                    "en": "Brochure"
+                }
+            }
+        ],
+        "content": {
+            "BRANDA": [
+                "baskireklam/dönercialiusta/branda/1-2.jpg",
+                "baskireklam/dönercialiusta/branda/2-1.jpg",
+                "baskireklam/dönercialiusta/branda/3-1.jpg",
+                "baskireklam/dönercialiusta/branda/4-1.jpg"
+            ],
+            "BROSUR": [
+                "baskireklam/dönercialiusta/brosur/5-1.jpg",
+                "baskireklam/dönercialiusta/brosur/6-1.jpg"
+            ]
+        }
+    },
+    {
+        "id": "pr4",
+        "cat": "PRINT",
+        "title": "Tuzdan Balık Branda ve Menü Tasarımları",
+        "client": "TuzdanBalık",
+        "year": "2025–2026",
+        "service_tr": "Baskı Uygulamaları",
+        "service_en": "Print Applications",
+        "description_tr": "Tuzdan Balık için hazırladığım branda ve menü tasarımları.",
+        "description_en": "Banner and menu designs created for Tuzdan Balık.",
+        "img": "baskireklam/tuzdanbalik/branda/1-4.jpg",
+        "tabs": [
+            {
+                "id": "BRANDA",
+                "label": {
+                    "tr": "Branda",
+                    "en": "Banner"
+                }
+            },
+            {
+                "id": "MENU",
+                "label": {
+                    "tr": "Menü",
+                    "en": "Menu"
+                }
+            }
+        ],
+        "content": {
+            "BRANDA": [
+                "baskireklam/tuzdanbalik/branda/1-4.jpg",
+                "baskireklam/tuzdanbalik/branda/2-3.jpg"
+            ],
+            "MENU": [
+                "baskireklam/tuzdanbalik/menu/3-3.jpg"
+            ]
+        }
+    }
+];
 
         // --- 4. GALERİ RENDER MANTIĞI ---
         let activeFilter = 'SOCIAL';
@@ -1831,8 +2012,8 @@
                 : currentProject.viewMode === 'thumbnails' ? 16 / 9
                 : activeContentType === 'STORY' ? 9 / 16
                 : activeContentType === 'POST' ? 4 / 5 : null;
-            const placeholder = ratio && ratio < .7 ? 'assets/missing-story.svg'
-                : ratio && ratio > 1.5 ? 'assets/missing-landscape.svg' : 'assets/missing.svg';
+            const placeholder = ratio && ratio < .7 ? 'assets/missing.svg'
+                : ratio && ratio > 1.5 ? 'assets/missing.svg' : 'assets/missing.svg';
             const ratioAttributes = ratio ? `data-media-ratio="${ratio}" style="--media-ratio: ${ratio}"` : '';
             scrollArea.innerHTML = mediaArr.map(src => {
                 return `<div class="project-media-frame w-full flex justify-center shrink-0" ${ratioAttributes}>
@@ -1947,7 +2128,7 @@
 
             const profileImg = new Image();
             profileImg.crossOrigin = "anonymous";
-            if (mediaFiles.has("/public/benimhakkimda/ben.jpg")) profileImg.src = "/public/benimhakkimda/ben.jpg";
+            profileImg.src = "benimhakkimda/selinaybenli.png";
             profileImg.onload = () => { renderFrontTexture(); frontTexture.needsUpdate = true; };
             profileImg.onerror = () => { renderFrontTexture(); frontTexture.needsUpdate = true; };
 

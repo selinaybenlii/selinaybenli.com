@@ -2161,6 +2161,14 @@
                 frontCtx.roundRect(w / 2 - 50, 40, 100, 24, 12);
                 frontCtx.fill();
 
+                // Portfolio years above the portrait, on the front only.
+                frontCtx.save();
+                frontCtx.textAlign = 'center';
+                frontCtx.fillStyle = '#444444';
+                frontCtx.font = 'bold 28px "JetBrains Mono", monospace';
+                frontCtx.fillText('2025-2026', w / 2, 120);
+                frontCtx.restore();
+
                 // Divider Line
                 frontCtx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
                 frontCtx.lineWidth = 2;
@@ -2219,7 +2227,7 @@
                 // Footer Line (High-contrast, clearly legible, eliminates white void)
                 frontCtx.fillStyle = '#444444';
                 frontCtx.font = 'bold 24px "JetBrains Mono", monospace';
-                frontCtx.fillText(currentLang === 'tr' ? 'PORTFOLYO 2026' : 'PORTFOLIO 2026', w / 2, 1110);
+                frontCtx.fillText(currentLang === 'tr' ? 'PORTFOLYO' : 'PORTFOLIO', w / 2, 1110);
             }
 
             function renderBackTexture() {
